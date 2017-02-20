@@ -35,18 +35,6 @@
         if (this['data-button'] && this['data-button'] === "true") {
             this.appendCloseButton();
         }
-
-        if (this.firstChild && this.firstChild.tagName && this.firstChild.tagName.toLowerCase() === 'button') {
-            // Listen for click event
-            this.firstChild.addEventListener('click', function(event) {
-                var element = event.target;
-                if (event.target.parentNode.tagName.toLowerCase() === 'button') {
-                    element = event.target.parentNode;
-                }
-
-                element.parentNode.close();                
-            });
-        }
     };
 
     ElementPrototype.detachedCallback = function () {
@@ -72,8 +60,9 @@
         var OriginalCustomEvent = new CustomEvent('close.bs.alert');
         OriginalCustomEvent.relatedTarget = this;
         this.dispatchEvent(OriginalCustomEvent);
+        this.removeEventListener('close.bs.alert', arguments.callee);
 
-        this.classList.toggle('show');
+        this.classList.remove('show');
 
         var OriginalCustomEvent = new CustomEvent('closed.bs.alert');
         OriginalCustomEvent.relatedTarget = this;
@@ -81,10 +70,10 @@
 
         if ('WebkitTransition' in document.documentElement.style || 'transition' in document.documentElement.style) {
             this.addEventListener("transitionend", function(event) {
-                event.target.parentNode.removeChild(this);
+                event.srcElement.remove();
             }, false);
         } else {
-            this.parentNode.removeChild(this);
+            this.remove()
         }
     };
 
@@ -99,13 +88,25 @@
 
             if (this.firstChild) this.insertBefore(closeButton,this.firstChild);
             else this.appendChild(closeButton);
+
+            // Add the required listener
+            this.firstChild.addEventListener('click', function(event) {
+                var element = event.target;
+                if (event.target.parentNode.tagName.toLowerCase() === 'button') {
+                    element = event.target.parentNode;
+                }
+
+                element.parentNode.close();                
+            });
         }
     };
 
     // Remove the close button
     ElementPrototype.removeCloseButton = function() {
-        if (this.querySelector('button[aria-label="Close"]'))
+        if (this.querySelector('button[aria-label="Close"]')) {
+            this.firstChild.removeEventListener('click', arguments.callee);
             this.removeChild(this.firstChild);
+        }
     };
 
     // Attribute handlers
