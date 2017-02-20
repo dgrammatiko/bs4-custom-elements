@@ -1,0 +1,19 @@
+{
+  "name": "bootstrap-as-custom-elements",
+  "version": "4.0.0",
+  "description": "Bootstrap components as custom elements",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgt41/bootstrap-components-as-custom-elements.git"
+  },
+  "dependencies": {
+    "grunt": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-htmlmin": "^2.2.0",
+    "grunt-contrib-uglify": "latest",
+    "grunt-sass": "^2.0.0",
+    "bootstrap": "~4.0.0-alpha.6"
+  },
+  "license": "MIT"
+}
