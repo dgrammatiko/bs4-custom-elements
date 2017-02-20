@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Bootstrap components as Custom Elements</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script>
+		(function () {
+			if ('registerElement' in document
+				&& 'import' in document.createElement('link')
+				&& 'content' in document.createElement('template')) {
+				// platform is good!
+			} else {
+				// polyfill the platform!
+				var e = document.createElement('script');
+				e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
+				document.head.appendChild(e);
+			}
+		})();
+	</script>
+	<link rel="import" href="dgt41-alert.html">
+
+	<style>
+dgt41-alert{
+    display:block;
+    padding:.75rem 1.25rem;
+    margin-bottom:1rem;
+    border:1px solid transparent;
+    border-radius:.25rem
+}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Bootstrap Components as Custom Elements</h1>
+		<hr />
+		<h2>Alerts example</h2>
+		<dgt41-alert data-type="info" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<dgt41-alert data-type="success" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<dgt41-alert data-type="warning">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<dgt41-alert data-type="danger" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<hr>
+		<h2>Programmatically add a new alert:</h2>
+		<p>Use the folloing script:</p>
+		<pre>
+			var tempElement = document.createElement('dgt41-alert');
+			tempElement.setAttribute('data-type', 'success');
+			tempElement.setAttribute('data-button', 'true');
+			tempElement.innerHTML = 'Wow it works!';
+			
+			document.body.appendChild(tempElement);
+		</pre>
+		<hr>
+		<h3>Live example</h3>
+		<div id="insert-new-alert">
+		</div>
+		Run the command by clicking this button:
+			<button role="button" id="insertNew" class="btn btn-success">Create An Alert</button>
+		<hr>
+		<h2>Programmatically change an alert or add remove the close button:</h2>
+		<p>Use the following script:</p>
+		<pre>
+			var tempElement = document.querySelector('dgt41-alert');
+			// This will set the alert to success
+			tempElement.setAttribute('data-type', 'success');
+			// This will create a close button
+			tempElement.setAttribute('data-button', 'true');
+		</pre>
+		<hr>
+		<h3>Live example</h3>
+		<dgt41-alert id="change-me" data-type="info" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<hr>
+		<div id="replaceble">
+			<button role="button" class="btn btn-primary" data-opt1="data-type" value="info">Make it info</button>
+			<button role="button" class="btn btn-primary" data-opt1="data-type" value="success">Make it success</button>
+			<button role="button" class="btn btn-primary" data-opt1="data-type" value="warning">Make it warning</button>
+			<button role="button" class="btn btn-primary" data-opt1="data-type" value="danger">Make it danger</button>
+			<button role="button" class="btn btn-primary" data-opt1="data-button" value="true">Add close button</button>
+			<button role="button" class="btn btn-primary" data-opt1="data-button" value="false">Remove close button</button>
+		</div>
+	</div>
+	<script>
+	var addNew = function() {
+		var tempElement = document.createElement('dgt41-alert');
+		tempElement.setAttribute('data-type', 'success');
+		tempElement.setAttribute('data-button', 'true');
+		tempElement.innerHTML = 'Wow it works!';
+		
+		document.getElementById('insert-new-alert').appendChild(tempElement);
+	}
+
+	var changeAlert = function(dataAttr, type) {
+		var tempElement = document.getElementById('change-me');
+		if (dataAttr === 'data-type')
+			tempElement.setAttribute('data-type', type);
+		if (dataAttr === 'data-button')
+			tempElement.setAttribute('data-button', type);
+	}
+	var addNewButton = document.getElementById('insertNew'),
+		changeButtons = document.querySelectorAll('#replaceble > .btn');
+
+	addNewButton.addEventListener('click', addNew);
+	document.getElementById('change-me').addEventListener('close.bs.alert', function() { alert('Seeing is believing. Event "close.bs.alert" fired!') });
+	document.getElementById('change-me').addEventListener('closed.bs.alert', function() { 
+		document.getElementById('replaceble').innerHTML = '<h3>Oops the alert is gonne. This change was done using the event "close.bs.alert"</h3>';
+	 });
+
+	for (var i = 0, l = changeButtons.length; i < l; i++) {
+			changeButtons[i].addEventListener('click', function() { changeAlert(event.target.getAttribute('data-opt1'), event.target.value) });
+	}
+
+	</script>
+</body>
+
+</html>
