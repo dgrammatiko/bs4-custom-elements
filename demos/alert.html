@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Bootstrap components as Custom Elements</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script>
+		(function () {
+			if ('registerElement' in document
+				&& 'import' in document.createElement('link')
+				&& 'content' in document.createElement('template')) {
+				// platform is good!
+			} else {
+				// polyfill the platform!
+				var e = document.createElement('script');
+				e.src = 'webcomponents-lite.min.js';
+				document.head.appendChild(e);
+			}
+		})();
+	</script>
+	<link rel="import" href="dgt41-alert.html">
+
+	<style>
+dgt41-alert{
+    display:block;
+    padding:.75rem 1.25rem;
+    margin-bottom:1rem;
+    border:1px solid transparent;
+    border-radius:.25rem
+}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Bootstrap Components as Custom Elements</h1>
+		<hr />
+		<h2>Alerts example</h2>
+		<dgt41-alert data-type="info" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<dgt41-alert data-type="success" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<dgt41-alert data-type="warning">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+		<dgt41-alert data-type="danger" data-button="true">
+			<strong>Alert:</strong> text goes here
+		</dgt41-alert>
+
+		<hr>
+	</div>
+</body>
+
+</html>
