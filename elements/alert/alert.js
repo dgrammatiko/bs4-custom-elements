@@ -13,7 +13,8 @@
         }
 
         this.setAttribute('role', 'alert');
-        this.classList.add('fade', 'show');
+        this.classList.add("fade");
+        this.classList.add("show");
 
         if (this['data-type'] && ['info', 'success', 'warning', 'danger'].indexOf(this['data-type']) > -1) {
             if (this['data-type'] === 'success') {
