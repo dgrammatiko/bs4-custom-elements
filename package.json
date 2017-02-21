@@ -21,13 +21,12 @@
   },
   "homepage": "https://github.com/dgt41/bootstrap-components-as-custom-elements#readme",
   "main": "Gruntfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
-    "bootstrap",
-    "custom",
-    "elements"
+    "Bootstrap",
+    "web-components",
+    "custom-elements",
+    "vanilla-js",
+    "javascript"
   ],
   "author": "Dimitrios Grammatikogiannis"
 }
