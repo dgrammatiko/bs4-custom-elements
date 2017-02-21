@@ -57,24 +57,31 @@
         // To trigger the event closed.bs.alert:
         // this.addEventListener('closed.bs.alert', function(){alert('haha')}, false);
 
-        var OriginalCustomEvent = new CustomEvent('close.bs.alert');
-        OriginalCustomEvent.relatedTarget = this;
-        this.dispatchEvent(OriginalCustomEvent);
-        this.removeEventListener('close.bs.alert', arguments.callee);
-
-        this.classList.remove('show');
-
-        var OriginalCustomEvent = new CustomEvent('closed.bs.alert');
-        OriginalCustomEvent.relatedTarget = this;
-        this.dispatchEvent(OriginalCustomEvent);
+        this.dispatchCustomEvent('close.bs.alert');
+        
 
         if ('WebkitTransition' in document.documentElement.style || 'transition' in document.documentElement.style) {
             this.addEventListener("transitionend", function(event) {
-                event.srcElement.remove();
+                event.target.dispatchCustomEvent('closed.bs.alert');
+                event.target.parentNode.removeChild(event.target);
             }, false);
-        } else {
-            this.remove()
+        } 
+
+        this.classList.remove('show');
+
+        if (!'WebkitTransition' in document.documentElement.style || !'transition' in document.documentElement.style) {
+            this.dispatchCustomEvent('closed.bs.alert');
+            this.parentNode.removeChild(this);
         }
+    };
+
+
+    // Dispatch the closed event
+    ElementPrototype.dispatchCustomEvent = function(eventName) {
+        var OriginalCustomEvent = new CustomEvent(eventName);
+        OriginalCustomEvent.relatedTarget = this;
+        this.dispatchEvent(OriginalCustomEvent);
+        this.removeEventListener(eventName, arguments.callee);
     };
 
     // Create the close button
