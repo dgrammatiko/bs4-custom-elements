@@ -1,10 +1,10 @@
 {
-  "name": "bootstrap-as-custom-elements",
-  "version": "4.0.0",
+  "name": "bs4-custom-elements",
+  "version": "0.0.1",
   "description": "Bootstrap components as custom elements",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dgt41/bootstrap-components-as-custom-elements.git"
+    "url": "git+https://github.com/dgt41/bootstrap-components-as-custom-elements.git"
   },
   "dependencies": {
     "grunt": "latest",
@@ -15,5 +15,19 @@
     "grunt-sass": "^2.0.0",
     "bootstrap": "~4.0.0-alpha.6"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dgt41/bootstrap-components-as-custom-elements/issues"
+  },
+  "homepage": "https://github.com/dgt41/bootstrap-components-as-custom-elements#readme",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bootstrap",
+    "custom",
+    "elements"
+  ],
+  "author": "Dimitrios Grammatikogiannis"
 }
