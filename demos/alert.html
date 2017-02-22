@@ -17,26 +17,9 @@
 				e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
 				document.head.appendChild(e);
 			}
-		})();
-
-		// PolyFill element.remove();
-		(function (arr) {
-			arr.forEach(function (item) {
-				if (item.hasOwnProperty('remove')) {
-				return;
-				}
-				Object.defineProperty(item, 'remove', {
-				configurable: true,
-				enumerable: true,
-				writable: true,
-				value: function remove() {
-					this.parentNode.removeChild(this);
-				}
-				});
-			});
-			})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);		
+		})();		
 	</script>
-	<link rel="import" href="dgt41-alert.html">
+	<link rel="import" href="https://dgt41.github.io/bs4-custom-elements/assets/dist/html/dgt41-alert.html">
 
 	<style>
 dgt41-alert{
@@ -51,7 +34,7 @@ dgt41-alert{
 
 <body>
 	<div class="container">
-		<h1>Bootstrap Components as Custom Elements</h1>
+		<h1>Bootstrap Components as Custom Elements <a class="btn btn-danger" href="https://dgt41.github.io/bs4-custom-elements/">Exit demo</a></h1>
 		<hr />
 		<h2>Alerts example</h2>
 		<dgt41-alert data-type="info" data-button="true">
@@ -100,12 +83,29 @@ dgt41-alert{
 		</dgt41-alert>
 		<hr>
 		<div id="replaceble">
-			<button role="button" class="btn btn-primary" data-opt1="data-type" value="info">Make it info</button>
-			<button role="button" class="btn btn-primary" data-opt1="data-type" value="success">Make it success</button>
-			<button role="button" class="btn btn-primary" data-opt1="data-type" value="warning">Make it warning</button>
-			<button role="button" class="btn btn-primary" data-opt1="data-type" value="danger">Make it danger</button>
-			<button role="button" class="btn btn-primary" data-opt1="data-button" value="true">Add close button</button>
-			<button role="button" class="btn btn-primary" data-opt1="data-button" value="false">Remove close button</button>
+			<button role="button" class="btn btn-info" data-opt1="data-type" value="info">Make it info</button>
+			<button role="button" class="btn btn-success" data-opt1="data-type" value="success">Make it success</button>
+			<button role="button" class="btn btn-warning" data-opt1="data-type" value="warning">Make it warning</button>
+			<button role="button" class="btn btn-danger" data-opt1="data-type" value="danger">Make it danger</button>
+			<button role="button" class="btn btn-default" data-opt1="data-button" value="true">Add close button</button>
+			<button role="button" class="btn btn-default" data-opt1="data-button" value="false">Remove close button</button>
+		</div>
+		<hr>
+		<h2>Programmatically close an alert:</h2>
+		<p>Use the following script:</p>
+		<pre>
+			var tempElement = document.querySelector('dgt41-alert');
+			// This will close the alert
+			tempElement.close();
+		</pre>
+		<hr>
+		<h3>Live example</h3>
+		<dgt41-alert id="close-me-with-a-btn" data-type="danger" data-button="true">
+			<strong>Alert:</strong> Close me with javascript
+		</dgt41-alert>
+		<hr>
+		<div>
+			<button role="button" id="i-will-close-that-alert" class="btn btn-info">Close the above alert</button>
 		</div>
 	</div>
 	<script>
@@ -131,13 +131,15 @@ dgt41-alert{
 	addNewButton.addEventListener('click', addNew);
 	document.getElementById('change-me').addEventListener('close.bs.alert', function() { alert('Seeing is believing. Event "close.bs.alert" fired!') });
 	document.getElementById('change-me').addEventListener('closed.bs.alert', function() { 
-		document.getElementById('replaceble').innerHTML = '<h3>Oops the alert is gonne. This change was done using the event "close.bs.alert"</h3>';
+		document.getElementById('replaceble').innerHTML = '<h4>Oops the alert is destroyed. This change was initiated using the event "closed.bs.alert" (the popup used the event "close.bs.alert"</h4>';
 	 });
 
 	for (var i = 0, l = changeButtons.length; i < l; i++) {
 			changeButtons[i].addEventListener('click', function(event) { changeAlert(event.target.getAttribute('data-opt1'), event.target.value) });
 	}
-
+	
+	document.getElementById('i-will-close-that-alert').addEventListener('click', function(event) { var a = document.getElementById('close-me-with-a-btn'); 
+	if (a) a.close(); event.target.setAttribute('disabled', true); event.target.removeEventListener('click', arguments.callee); });
 	</script>
 </body>
 
