@@ -5,8 +5,6 @@ description: Get familiar with the basics.
 permalink: index.html
 ---
 
-# bs4-custom-elements
-
 ### Bootstrap components using modern technologies
 
 This is a collection of all the Boostrap (only version 4) components developed with the new W3C standard: custom elements. Each component is using plain and optimized javascript for performance. Also the HTML markup (wherever possible) is reduced as the custom elements support pretty nice methods (shadow DOM namelly) and thus the component can be implemented in a more clever way (without performance penalties).
@@ -57,8 +55,8 @@ Although all the major browsers are **committed** to support custom elements som
 The repo for the actual polyfill is: https://github.com/webcomponents/webcomponentsjs
 
 ### Demos
-- [Alert](demos/alert.html)
-- [Button](demos/button.html) 
+- [Alert](alert-demo.html)
+- [Button](button-demo.html) 
 
 ### Documentation
 - [Alert](alert-doc.html)

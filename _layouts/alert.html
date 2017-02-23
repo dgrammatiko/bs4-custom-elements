@@ -1,27 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
+  
+  {% include head.html %}
 
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>Bootstrap components as Custom Elements</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script>
-		(function () {
-			if ('registerElement' in document
-				&& 'import' in document.createElement('link')
-				&& 'content' in document.createElement('template')) {
-				// platform is good!
-			} else {
-				// polyfill the platform!
-				var e = document.createElement('script');
-				e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
-				document.head.appendChild(e);
-			}
-		})();		
-	</script>
-	<link rel="import" href="https://dgt41.github.io/bs4-custom-elements/assets/dist/html/dgt41-alert.html">
-
-	<style>
+  <body>
+  	<style>
 dgt41-alert{
     display:block;
     padding:.75rem 1.25rem;
@@ -30,13 +13,11 @@ dgt41-alert{
     border-radius:.25rem
 }
 	</style>
-</head>
+    {% include page-header.html %}
 
-<body>
-	<div class="container">
-		<h1>Bootstrap Components as Custom Elements <a class="btn btn-danger" href="https://dgt41.github.io/bs4-custom-elements/">Exit demo</a></h1>
-		<hr />
-		<h2>Alerts example</h2>
+    <section class="main-content">
+		<h1>Alerts demo</h1>
+		<h2>Rendered alerts:</h2>
 		<dgt41-alert data-type="info" data-button="true">
 			<strong>Alert:</strong> text goes here
 		</dgt41-alert>
@@ -87,8 +68,8 @@ dgt41-alert{
 			<button role="button" class="btn btn-success" data-opt1="data-type" value="success">Make it success</button>
 			<button role="button" class="btn btn-warning" data-opt1="data-type" value="warning">Make it warning</button>
 			<button role="button" class="btn btn-danger" data-opt1="data-type" value="danger">Make it danger</button>
-			<button role="button" class="btn btn-default" data-opt1="data-button" value="true">Add close button</button>
-			<button role="button" class="btn btn-default" data-opt1="data-button" value="false">Remove close button</button>
+			<button role="button" class="btn btn-success" data-opt1="data-button" value="true">Add close button</button>
+			<button role="button" class="btn btn-danger" data-opt1="data-button" value="false">Remove close button</button>
 		</div>
 		<hr>
 		<h2>Programmatically close an alert:</h2>
@@ -107,7 +88,7 @@ dgt41-alert{
 		<div>
 			<button role="button" id="i-will-close-that-alert" class="btn btn-info">Close the above alert</button>
 		</div>
-	</div>
+
 	<script>
 	var addNew = function() {
 		var tempElement = document.createElement('dgt41-alert');
@@ -141,6 +122,10 @@ dgt41-alert{
 	document.getElementById('i-will-close-that-alert').addEventListener('click', function(event) { var a = document.getElementById('close-me-with-a-btn'); 
 	if (a) a.close(); event.target.setAttribute('disabled', true); event.target.removeEventListener('click', arguments.callee); });
 	</script>
-</body>
 
+      {% include page-footer.html %}
+
+    </section>
+
+  </body>
 </html>
