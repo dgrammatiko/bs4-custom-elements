@@ -9,19 +9,19 @@
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   
-  	<script>
-		(function () {
-			if ('registerElement' in document
-				&& 'import' in document.createElement('link')
-				&& 'content' in document.createElement('template')) {
-				// platform is good!
-			} else {
-				// polyfill the platform!
-				var e = document.createElement('script');
-				e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
-				document.head.appendChild(e);
-			}
-		})();		
-	</script>
-	<link rel="import" href="{{ site.baseurl }}/assets/dist/html/dgt41-alert.html">
+  <script>
+	(function () {
+		if ('registerElement' in document
+			&& 'import' in document.createElement('link')
+			&& 'content' in document.createElement('template')) {
+			// platform is good!
+		} else {
+			// polyfill the platform!
+			var e = document.createElement('script');
+			e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
+			document.head.appendChild(e);
+		}
+	})();		
+  </script>
+  <link rel="import" href="{{ site.baseurl }}/assets/dist/html/dgt41-alert.html">
 </head>
