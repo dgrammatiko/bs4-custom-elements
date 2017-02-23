@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  {% include head.html %}
+
+  <body>
+  	<style>
+dgt41-button{
+	cursor: pointer;
+}
+	</style>
+    {% include page-header.html %}
+
+    <section class="main-content">
+		<h1>Button demo</h1>
+		<h2>Toggle-able button:</h2>
+		<dgt41-button data-toggle="button" class="btn btn-info">Single toggle</dgt41-button>
+		<dgt41-button data-toggle="button" class="btn btn-success active" aria-pressed="true">Initial active</dgt41-button>
+		<dgt41-button data-toggle="button" class="btn btn-warning">Single toggle</dgt41-button>
+		<dgt41-button data-toggle="button" class="btn btn-danger active" aria-pressed="true">Initial active</dgt41-button>
+
+		<hr>
+		<h2>Toogle a single button programmatically:</h2>
+		<p>Use the following script:</p>
+		<pre>
+var tempElement = document.createElement('dgt41-button');
+tempElement.toggle();
+		</pre>
+		<hr>
+		<h3>Live example:</h3>
+		<div id="toggle-button">
+			<dgt41-button data-toggle="button" class="btn btn-info">Single toggle</dgt41-button>
+			<dgt41-button data-toggle="button" class="btn btn-success" >Single toggle</dgt41-button>
+			<dgt41-button data-toggle="button" class="btn btn-warning" >Single toggle</dgt41-button>
+			<dgt41-button data-toggle="button" class="btn btn-danger" >Single toggle</dgt41-button>
+		</div>
+		<p>Control the state of the above buttons with:</p>
+			<button role="button" id="toggler" class="btn btn-success">Toggle 'em all</button>
+		<hr>
+		<h2>Checkboxes as group buttons:</h2>
+		<h3>Live example:</h3>
+		<dgt41-button class="btn-group" data-toggle="buttons">
+			<label class="btn btn-info active">
+				<input type="checkbox" checked autocomplete="off"> Checkbox 1 (pre-checked)
+			</label>
+			<label class="btn btn-info">
+				<input type="checkbox" checked autocomplete="off"> Checkbox 2
+			</label>
+			<label class="btn btn-info">
+				<input type="checkbox" autocomplete="off"> Checkbox 3
+			</label>
+			<label class="btn btn-info">
+				<input type="checkbox" autocomplete="off"> Checkbox 4
+			</label>
+			<label class="btn btn-info">
+				<input type="checkbox" autocomplete="off"> Checkbox 5
+			</label>
+		</dgt41-button>
+		<hr>
+		<h2>Radios as group buttons:</h2>
+		<h3>Live example:</h3>
+		<dgt41-button class="btn-group" data-toggle="buttons">
+			<label class="btn btn-danger active">
+				<input type="radio" name="options" id="option1" autocomplete="off" checked> Radio 1 (pre-checked)
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="options" id="option2" autocomplete="off" checked> Radio 2
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="options" id="option3" autocomplete="off" checked> Radio 3
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="options" id="option4" autocomplete="off" checked> Radio 4
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="options" id="option5" autocomplete="off" checked> Radio 5
+			</label>
+		</dgt41-button>
+
+	<script>
+		// Toggle single
+	var toggleButton = document.getElementById('toggler');
+
+	toggleButton.addEventListener('click', function () {
+		var changeButtons = document.querySelectorAll('#toggle-button > .btn');
+		for (var i = 0, l = changeButtons.length; i < l; i++) {
+			if (changeButtons[i].id !== 'toggler')
+			//Toggle each button
+			changeButtons[i].toggle();
+		}
+	});
+	</script>
+
+      {% include page-footer.html %}
+
+    </section>
+
+  </body>
+</html>
