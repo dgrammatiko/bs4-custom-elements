@@ -57,10 +57,12 @@ The repo for the actual polyfill is: https://github.com/webcomponents/webcompone
 ### Demos
 - [Alert](alert-demo.html)
 - [Button](button-demo.html) 
+- [Carousel](carousel-demo.html) 
 
 ### Documentation
 - [Alert](alert-doc.html)
 - [Button](button-doc.html)
+- [Carousel](carousel-doc.html)
 
 ### License
 
