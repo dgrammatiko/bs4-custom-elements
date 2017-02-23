@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  {% include head.html %}
+
+  <body>
+  	<style>
+
+	</style>
+    {% include page-header.html %}
+
+    <section class="main-content">
+		<h2>Modal Demo</h2>
+
+		<dgt41-modal>
+			<div id="exampleModalLive" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLiveLabel">Modal title</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+						</div>
+						<div class="modal-body">
+							<p>Woohoo, you're reading this text in a modal!</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bd-example">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLive">
+			Launch demo modal
+		</button>
+			</div>
+		</dgt41-modal>
+
+		<p>Another example: </p>
+
+		<dgt41-modal>
+			<div id="exampleModalLive2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLiveLabel">Modal title 2</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+						</div>
+						<div class="modal-body">
+							<p>Woohoo, you're reading this text in a modal 2!</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bd-example">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLive2">
+			Launch demo modal 2
+		</button>
+			</div>
+		</dgt41-modal>
+
+
+
+		<hr>
+
+
+	<script>
+		// Toggle single
+	// var toggleButton = document.getElementById('toggler');
+
+	// toggleButton.addEventListener('click', function () {
+	// 	var changeButtons = document.querySelectorAll('#toggle-button > .btn');
+	// 	for (var i = 0, l = changeButtons.length; i < l; i++) {
+	// 		if (changeButtons[i].id !== 'toggler')
+	// 		//Toggle each button
+	// 		changeButtons[i].toggle();
+	// 	}
+	// });
+	</script>
+
+      {% include page-footer.html %}
+
+    </section>
+
+  </body>
+</html>

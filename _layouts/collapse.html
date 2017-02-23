@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  {% include head.html %}
+
+  <body>
+  	<style>
+		dgt41-collapse{
+			display: none;
+		}
+
+		dgt41-collapse.show {
+			display: block;
+		}
+	</style>
+    {% include page-header.html %}
+
+    <section class="main-content">
+		<h1>Collapse demo</h1>
+
+		<p>
+			<a class="btn btn-primary" href="#collapseExample">
+				Link with href
+			</a>
+			<button class="btn btn-primary" type="button" data-target="#collapseExample">
+				Button with data-target
+			</button>
+		</p>
+		<dgt41-collapse data-state="closed" id="collapseExample">
+			<div class="card card-block">
+				Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+			</div>
+		</dgt41-collapse>
+
+		<hr>
+
+
+	<script>
+		// Toggle single
+	// var toggleButton = document.getElementById('toggler');
+
+	// toggleButton.addEventListener('click', function () {
+	// 	var changeButtons = document.querySelectorAll('#toggle-button > .btn');
+	// 	for (var i = 0, l = changeButtons.length; i < l; i++) {
+	// 		if (changeButtons[i].id !== 'toggler')
+	// 		//Toggle each button
+	// 		changeButtons[i].toggle();
+	// 	}
+	// });
+	</script>
+
+      {% include page-footer.html %}
+
+    </section>
+
+  </body>
+</html>

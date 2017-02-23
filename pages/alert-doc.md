@@ -1,5 +1,5 @@
 ---
-title: Alert
+title: Alert documentation
 permalink: alert-doc.html
 ---
 
