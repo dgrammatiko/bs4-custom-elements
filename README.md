@@ -1,6 +1,6 @@
 # bs4-custom-elements
 
-[Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
 ### Bootstrap components using modern technologies
 
