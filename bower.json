@@ -1,23 +1,18 @@
 {
-  "name": "bs4-custom-elements",
-  "description": "Bootstrap components as custom elements",
-  "main": "Gruntfile.js",
-  "authors": [
-    "Dimitrios Grammatikogiannis"
-  ],
-  "license": "MIT",
-  "keywords": [
-    "bootstrap",
-    "custom",
-    "elements",
-    "webcomponents"
-  ],
-  "homepage": "https://github.com/dgt41/bs4-custom-elements",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+	"name": "bs4-custom-elements",
+	"version": "0.0.1",
+	"description": "Bootstrap components as custom elements",
+	"main": "Gruntfile.js",
+	"authors": [
+		"Dimitrios Grammatikogiannis"
+	],
+	"license": "MIT",
+	"keywords": [
+		"bootstrap",
+		"web-component",
+		"web-components",
+		"custom-element",
+		"custom-elements"
+	],
+	"homepage": "https://github.com/dgt41/bs4-custom-elements"
 }
