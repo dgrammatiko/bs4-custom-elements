@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  {% include head.html %}
+
+  <body>
+  	<style>
+
+	</style>
+    {% include page-header.html %}
+
+    <section class="main-content">
+		<h2>Tooltip Demo</h2>
+
+		<div class="bd-example tooltip-demo">
+			<div class="bd-example-tooltips">
+				<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
+				<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Tooltip on right</button>
+				<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+				<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
+			<!--	<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-html="true" title="" data-original-title="&lt;em&gt;Tooltip&lt;/em&gt; &lt;u&gt;with&lt;/u&gt; &lt;b&gt;HTML&lt;/b&gt;">Tooltip with HTML</button> -->
+			</div>
+		</div>
+
+		<hr>
+
+
+	<script>
+		// Toggle single
+	// var toggleButton = document.getElementById('toggler');
+
+	// toggleButton.addEventListener('click', function () {
+	// 	var changeButtons = document.querySelectorAll('#toggle-button > .btn');
+	// 	for (var i = 0, l = changeButtons.length; i < l; i++) {
+	// 		if (changeButtons[i].id !== 'toggler')
+	// 		//Toggle each button
+	// 		changeButtons[i].toggle();
+	// 	}
+	// });
+	</script>
+
+      {% include page-footer.html %}
+
+    </section>
+
+  </body>
+</html>
