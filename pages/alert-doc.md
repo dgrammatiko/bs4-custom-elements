@@ -7,7 +7,7 @@ permalink: alert-doc.html
 
 In order to use the alert custom element you need to import the element in the document's head:
 ```html
-<link rel="import" href="dgt41-alert.html">
+<link rel="import" href="bs4-alert.html">
 ```
 
 The default markup for bootstrap alerts:
@@ -37,18 +37,18 @@ The default markup for bootstrap alerts:
 
 And the simplified version of the custom elements
 ```html
-<dgt41-alert data-type="info" data-button="true">
+<bs4-alert data-type="info" data-button="true">
 	<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-</dgt41-alert>
-<dgt41-alert data-type="success" data-button="true">
+</bs4-alert>
+<bs4-alert data-type="success" data-button="true">
 	<strong>Well done!</strong> You successfully read this important alert message.
-</dgt41-alert>
-<dgt41-alert data-type="warning">
+</bs4-alert>
+<bs4-alert data-type="warning">
 	<strong>Warning!</strong> Better check yourself, you're not looking too good.
-</dgt41-alert>
-<dgt41-alert data-type="danger" data-button="true">
+</bs4-alert>
+<bs4-alert data-type="danger" data-button="true">
 	<strong>Oh snap!</strong> Change a few things up and try submitting again.
-</dgt41-alert>
+</bs4-alert>
 ```
 
 ## Dismissing

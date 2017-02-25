@@ -4,37 +4,29 @@
   {% include head.html %}
 
   <body>
-  	<style>
-dgt41-alert{
-    display:block;
-    padding:.75rem 1.25rem;
-    margin-bottom:1rem;
-    border:1px solid transparent;
-    border-radius:.25rem
-}
-	</style>
+
     {% include page-header.html %}
 
     <section class="main-content">
 		<h1>Alerts demo</h1>
 		<h2>Rendered alerts:</h2>
-		<dgt41-alert data-type="info" data-button="true">
+		<bs4-alert data-type="info" data-button="true">
 			<strong>Alert:</strong> text goes here
-		</dgt41-alert>
-		<dgt41-alert data-type="success" data-button="true">
+		</bs4-alert>
+		<bs4-alert data-type="success" data-button="true">
 			<strong>Alert:</strong> text goes here
-		</dgt41-alert>
-		<dgt41-alert data-type="warning">
+		</bs4-alert>
+		<bs4-alert data-type="warning">
 			<strong>Alert:</strong> text goes here
-		</dgt41-alert>
-		<dgt41-alert data-type="danger" data-button="true">
+		</bs4-alert>
+		<bs4-alert data-type="danger" data-button="true">
 			<strong>Alert:</strong> text goes here
-		</dgt41-alert>
+		</bs4-alert>
 		<hr>
 		<h2>Programmatically add a new alert:</h2>
 		<p>Use the following script:</p>
 		<pre>
-			var tempElement = document.createElement('dgt41-alert');
+			var tempElement = document.createElement('bs4-alert');
 			tempElement.setAttribute('data-type', 'success');
 			tempElement.setAttribute('data-button', 'true');
 			tempElement.innerHTML = 'Wow it works!';
@@ -51,7 +43,7 @@ dgt41-alert{
 		<h2>Programmatically change an alert or add remove the close button:</h2>
 		<p>Use the following script:</p>
 		<pre>
-			var tempElement = document.querySelector('dgt41-alert');
+			var tempElement = document.querySelector('bs4-alert');
 			// This will set the alert to success
 			tempElement.setAttribute('data-type', 'success');
 			// This will create a close button
@@ -59,9 +51,9 @@ dgt41-alert{
 		</pre>
 		<hr>
 		<h3>Live example</h3>
-		<dgt41-alert id="change-me" data-type="info" data-button="true">
+		<bs4-alert id="change-me" data-type="info" data-button="true">
 			<strong>Alert:</strong> text goes here
-		</dgt41-alert>
+		</bs4-alert>
 		<hr>
 		<div id="replaceble">
 			<button role="button" class="btn btn-info" data-opt1="data-type" value="info">Make it info</button>
@@ -75,15 +67,15 @@ dgt41-alert{
 		<h2>Programmatically close an alert:</h2>
 		<p>Use the following script:</p>
 		<pre>
-			var tempElement = document.querySelector('dgt41-alert');
+			var tempElement = document.querySelector('bs4-alert');
 			// This will close the alert
 			tempElement.close();
 		</pre>
 		<hr>
 		<h3>Live example</h3>
-		<dgt41-alert id="close-me-with-a-btn" data-type="danger" data-button="true">
+		<bs4-alert id="close-me-with-a-btn" data-type="danger" data-button="true">
 			<strong>Alert:</strong> Close me with javascript
-		</dgt41-alert>
+		</bs4-alert>
 		<hr>
 		<div>
 			<button role="button" id="i-will-close-that-alert" class="btn btn-info">Close the above alert</button>
@@ -91,7 +83,7 @@ dgt41-alert{
 
 	<script>
 	var addNew = function() {
-		var tempElement = document.createElement('dgt41-alert');
+		var tempElement = document.createElement('bs4-alert');
 		tempElement.setAttribute('data-type', 'success');
 		tempElement.setAttribute('data-button', 'true');
 		tempElement.innerHTML = 'Wow it works!';

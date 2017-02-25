@@ -32,7 +32,7 @@ The folder named `dist` contains all your elements.
 
 For each component that you need to have available in your page you need to add the custom element in the head of the document:
 ```html
-<link rel="import" href="dgt41-alert.html">
+<link rel="import" href="bs4-alert.html">
 ```
 
 ### Browser support
