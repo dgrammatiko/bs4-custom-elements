@@ -1,6 +1,7 @@
 (function () {
-
-    var ElementPrototype = Object.create(HTMLElement.prototype);
+    var doc = (document._currentScript || document.currentScript).ownerDocument,
+        template = doc.getElementById('#dgt41-alert'),
+        ElementPrototype = Object.create(HTMLElement.prototype);
 
     // Lifecycle methods
     ElementPrototype.createdCallback = function () {
@@ -13,8 +14,8 @@
         }
 
         this.setAttribute('role', 'alert');
-        this.classList.add('fade');
-        this.classList.add('show');
+        this.classList.add("fade");
+        this.classList.add("show");
 
         if (this['data-type'] && ['info', 'success', 'warning', 'danger'].indexOf(this['data-type']) > -1) {
             if (this['data-type'] === 'success') {
@@ -36,6 +37,11 @@
         if (this['data-button'] && this['data-button'] === "true") {
             this.appendCloseButton();
         }
+
+        // Without the shadow DOM, we have to manipulate the custom element
+        // after it has been inserted in the DOM.
+        var temp = document.importNode(template.content, true);
+        this.appendChild(temp);
     };
 
     ElementPrototype.detachedCallback = function () {

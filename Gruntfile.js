@@ -22,7 +22,9 @@ module.exports = function (grunt) {
 					sourceMap: false // SHOULD BE FALSE FOR DIST
 				},
 				files: {
-					'elements/alert/alert.css': 'elements/alert/alert.scss'
+					'elements/alert/alert.css': 'elements/alert/alert.scss',
+					'elements/button/button.css': 'elements/button/button.scss',
+					'elements/collapse/collapse.css': 'elements/collapse/collapse.scss'
 				}
 			}
 		},
@@ -34,6 +36,7 @@ module.exports = function (grunt) {
 					{
 						src: [
 							'<%= folder.elements %>/alert/*.js',
+							'<%= folder.elements %>/accordion/*.js',
 							'<%= folder.elements %>/button/*.js',
 							'<%= folder.elements %>/carousel/*.js',
 							'<%= folder.elements %>/collapse/*.js',
@@ -74,6 +77,7 @@ module.exports = function (grunt) {
 				},
 				files: {
 					'elements/alert/alert.Chtml': 'elements/alert/alert.html',     // 'destination': 'source'
+					'elements/button/button.Chtml': 'elements/button/button.html',     // 'destination': 'source'
 					'elements/modal/modal.Chtml': 'elements/modal/modal.html',
 					'elements/tabs/tabs.Chtml': 'elements/tabs/tabs.html',
 				}
@@ -108,19 +112,19 @@ module.exports = function (grunt) {
 
 			// Compose the element
 			tmpOutput = '<element name="' + settings.prefix + '-' + element + '">';
-			// Use the shadow dom...
-			// if (tmpHtml || tmpCss) {
-			// 	tmpOutput += '<template>';
-			// 	if (tmpHtml) {
-			// 		tmpHtml = tmpHtml.replace(/dgt41-/g, settings.prefix + '-');
-			// 		tmpOutput += tmpHtml;
-			// 	}
-			// 	if (tmpCss) {
-			// 		tmpHtml = tmpCss.replace(/dgt41-/g, settings.prefix + '-');
-			// 		tmpOutput += '<style>' + tmpCss + '</style>';
-			// 	}
-			// 	tmpOutput += '</template>';
-			// }
+			// Use the some css...
+			if (tmpHtml || tmpCss) {
+				tmpOutput += '<template id="' + settings.prefix + '-' + element + '">';
+				if (tmpHtml) {
+					tmpHtml = tmpHtml.replace(/dgt41-/g, settings.prefix + '-');
+					tmpOutput += tmpHtml;
+				}
+				if (tmpCss) {
+					tmpCss = tmpCss.replace(/dgt41-/g, settings.prefix + '-');
+					tmpOutput += '<style>' + tmpCss + '</style>';
+				}
+				tmpOutput += '</template>';
+			}
 			if (tmpJs) {
 				tmpJs = tmpJs.replace(/dgt41-/g, settings.prefix + '-');
 				tmpOutput += '<script>' + tmpJs + '</script>';
@@ -132,7 +136,8 @@ module.exports = function (grunt) {
 			grunt.file.write('dist/html/' + settings.prefix + '-' + element + '.html', tmpOutput);
 
 
-			if (grunt.file.exists('elements/' + element + '/' + element + '.css')) {
+			if (grunt.file.exists('dist/css/' + element + '/' + element + '.min.css')) {
+				grunt.file.delete('dist/css/' + element + '/' + element + '.min.css');
 				grunt.file.delete('elements/' + element + '/' + element + '.css');
 			}
 			if (grunt.file.exists('elements/' + element + '/' + element + '.Chtml')) {
@@ -141,7 +146,8 @@ module.exports = function (grunt) {
 			if (grunt.file.exists('elements/' + element + '/' + element + '.min.js')) {
 				grunt.file.delete('elements/' + element + '/' + element + '.min.js');
 			}
-
-		})
+		});
+		if (grunt.file.exists('dist/css'))
+			grunt.file.delete('dist/css');
 	});
 };
