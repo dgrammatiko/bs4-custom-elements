@@ -1,0 +1,11 @@
+// @import "node_modules/bootstrap/scss/variables";
+// @import "node_modules/bootstrap/scss/mixins";
+// @import "node_modules/bootstrap/scss/alert";
+
+dgt41-collapse{
+    display: none;
+}
+
+dgt41-collapse.show {
+    display: block;
+}

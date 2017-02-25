@@ -140,6 +140,9 @@ module.exports = function (grunt) {
 				grunt.file.delete('dist/css/' + element + '/' + element + '.min.css');
 				grunt.file.delete('elements/' + element + '/' + element + '.css');
 			}
+			if (grunt.file.exists('elements/' + element + '/' + element + '.css')) {
+				grunt.file.delete('elements/' + element + '/' + element + '.css');
+			}
 			if (grunt.file.exists('elements/' + element + '/' + element + '.Chtml')) {
 				grunt.file.delete('elements/' + element + '/' + element + '.Chtml');
 			}
