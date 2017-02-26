@@ -26,12 +26,12 @@
 		<h2>Programmatically add a new alert:</h2>
 		<p>Use the following script:</p>
 		<pre>
-			var tempElement = document.createElement('bs4-alert');
-			tempElement.setAttribute('data-type', 'success');
-			tempElement.setAttribute('data-button', 'true');
-			tempElement.innerHTML = 'Wow it works!';
-			
-			document.body.appendChild(tempElement);
+var tempElement = document.createElement('bs4-alert');
+tempElement.setAttribute('data-type', 'success');
+tempElement.setAttribute('data-button', 'true');
+tempElement.innerHTML = 'Wow it works!';
+
+document.body.appendChild(tempElement);
 		</pre>
 		<hr>
 		<h3>Live example</h3>
@@ -43,11 +43,11 @@
 		<h2>Programmatically change an alert or add remove the close button:</h2>
 		<p>Use the following script:</p>
 		<pre>
-			var tempElement = document.querySelector('bs4-alert');
-			// This will set the alert to success
-			tempElement.setAttribute('data-type', 'success');
-			// This will create a close button
-			tempElement.setAttribute('data-button', 'true');
+var tempElement = document.querySelector('bs4-alert');
+// This will set the alert to success
+tempElement.setAttribute('data-type', 'success');
+// This will create a close button
+tempElement.setAttribute('data-button', 'true');
 		</pre>
 		<hr>
 		<h3>Live example</h3>
@@ -67,9 +67,9 @@
 		<h2>Programmatically close an alert:</h2>
 		<p>Use the following script:</p>
 		<pre>
-			var tempElement = document.querySelector('bs4-alert');
-			// This will close the alert
-			tempElement.close();
+var tempElement = document.querySelector('bs4-alert');
+// This will close the alert
+tempElement.close();
 		</pre>
 		<hr>
 		<h3>Live example</h3>
