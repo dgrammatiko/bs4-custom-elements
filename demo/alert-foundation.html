@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation for Sites</title>
+    <link rel="stylesheet" href="assets/foundation.min.css">
+    <script>
+      (function () {
+        if ('registerElement' in document
+          && 'import' in document.createElement('link')
+          && 'content' in document.createElement('template')) {
+          // platform is good!
+        } else {
+          // polyfill the platform!
+          var e = document.createElement('script');
+          e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
+          document.head.appendChild(e);
+        }
+      })();
+    </script>
+    <link rel="import" href="html/decoupled/bs4-alert.html">
+
+    <!--	
+      <link rel="import" href="html/decoupled/bs4-accordion.html">
+      <link rel="import" href="html/decoupled/bs4-button.html">
+      <link rel="import" href="html/decoupled/bs4-carousel.html">
+      <link rel="import" href="html/decoupled/bs4-collapse.html">
+      <link rel="import" href="html/decoupled/bs4-dropdown.html">
+      <link rel="import" href="html/decoupled/bs4-modal.html">
+      <link rel="import" href="html/decoupled/bs4-tabs.html">
+      <link rel="import" href="html/decoupled/bs4-tooltip.html">
+      -->
+  </head>
+  <body>
+
+    <div class="row">
+      <div class="large-12 columns">
+<h1>Alerts demo</h1>
+<h2>Rendered alerts:</h2>
+<bs4-alert data-type="info" data-button="true" role="alert">
+  <strong>Alert:</strong> text goes here
+</bs4-alert>
+<bs4-alert data-type="success" data-button="true" role="alert">
+  <strong>Alert:</strong> text goes here
+</bs4-alert>
+<bs4-alert data-type="warning" role="alert">
+  <strong>Alert:</strong> text goes here
+</bs4-alert>
+<bs4-alert data-type="danger" data-button="true" role="alert">
+  <strong>Alert:</strong> text goes here
+</bs4-alert>
+<hr>
+<h2>Programmatically add a new alert:</h2>
+<p>Use the following script:</p>
+<pre>var tempElement = document.createElement('bs4-alert');
+tempElement.setAttribute('data-type', 'success');
+tempElement.setAttribute('data-button', 'true');
+tempElement.innerHTML = 'Wow it works!';
+
+document.body.appendChild(tempElement);
+		</pre>
+<hr>
+<h3>Live example</h3>
+<div id="insert-new-alert">
+</div>
+Run the command by clicking this button:
+<button role="button" id="insertNew" class="btn btn-success">Create An Alert</button>
+<hr>
+<h2>Programmatically change an alert or add remove the close button:</h2>
+<p>Use the following script:</p>
+<pre>var tempElement = document.querySelector('bs4-alert');
+// This will set the alert to success
+tempElement.setAttribute('data-type', 'success');
+// This will create a close button
+tempElement.setAttribute('data-button', 'true');
+		</pre>
+<hr>
+<h3>Live example</h3>
+<bs4-alert id="change-me" data-type="info" data-button="true">
+  <strong>Alert:</strong> text goes here
+</bs4-alert>
+<hr>
+<div id="replaceble">
+  <button role="button" class="btn btn-info" data-opt1="data-type" value="info">Make it info</button>
+  <button role="button" class="btn btn-success" data-opt1="data-type" value="success">Make it success</button>
+  <button role="button" class="btn btn-warning" data-opt1="data-type" value="warning">Make it warning</button>
+  <button role="button" class="btn btn-danger" data-opt1="data-type" value="danger">Make it danger</button>
+  <button role="button" class="btn btn-success" data-opt1="data-button" value="true">Add close button</button>
+  <button role="button" class="btn btn-danger" data-opt1="data-button" value="false">Remove close button</button>
+</div>
+<hr>
+<h2>Programmatically close an alert:</h2>
+<p>Use the following script:</p>
+<pre>var tempElement = document.querySelector('bs4-alert');
+// This will close the alert
+tempElement.close();
+		</pre>
+<hr>
+<h3>Live example</h3>
+<bs4-alert id="close-me-with-a-btn" data-type="danger" data-button="true">
+  <strong>Alert:</strong> Close me with javascript
+
+</bs4-alert>
+<hr>
+<div>
+  <button role="button" id="i-will-close-that-alert" class="btn btn-info">Close the above alert</button>
+</div>
+
+<script>
+  var addNew = function () {
+    var tempElement = document.createElement('bs4-alert');
+    tempElement.setAttribute('data-type', 'success');
+    tempElement.setAttribute('data-button', 'true');
+    tempElement.innerHTML = 'Wow it works!';
+
+    document.getElementById('insert-new-alert').appendChild(tempElement);
+  }
+
+  var changeAlert = function (dataAttr, type) {
+    var tempElement = document.getElementById('change-me');
+    if (dataAttr === 'data-type')
+      tempElement.setAttribute('data-type', type);
+    if (dataAttr === 'data-button')
+      tempElement.setAttribute('data-button', type);
+  }
+  var addNewButton = document.getElementById('insertNew'),
+    changeButtons = document.querySelectorAll('#replaceble > .btn');
+
+  addNewButton.addEventListener('click', addNew);
+  document.getElementById('change-me').addEventListener('close.bs.alert', function () { alert('Seeing is believing. Event "close.bs.alert" fired!') });
+  document.getElementById('change-me').addEventListener('closed.bs.alert', function () {
+    document.getElementById('replaceble').innerHTML = '<h4>Oops the alert is destroyed. This change was initiated using the event "closed.bs.alert" (the popup used the event "close.bs.alert"</h4>';
+  });
+
+  for (var i = 0, l = changeButtons.length; i < l; i++) {
+    changeButtons[i].addEventListener('click', function (event) { changeAlert(event.target.getAttribute('data-opt1'), event.target.value) });
+  }
+
+  document.getElementById('i-will-close-that-alert').addEventListener('click', function (event) {
+    var a = document.getElementById('close-me-with-a-btn');
+    if (a) a.close(); event.target.setAttribute('disabled', true); event.target.removeEventListener('click', arguments.callee);
+  });
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
