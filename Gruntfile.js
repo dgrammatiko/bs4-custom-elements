@@ -145,6 +145,7 @@ module.exports = function (grunt) {
 						if (tmpFullCss) {
 							tmpFullCss = tmpFullCss.replace(/dgt41-/g, settings.prefix + '-');
 							tmpOutput += '<style>' + tmpFullCss + '</style>';
+							tmpOutput += '<slot></slot>';
 						}
 					}
 					tmpOutput += '</template>';

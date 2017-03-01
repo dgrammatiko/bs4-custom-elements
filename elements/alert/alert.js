@@ -10,9 +10,9 @@
 
     ElementPrototype.attachedCallback = function () {
         // Return early if no content is given
-        if (!this.innerHTML) {
-            return;
-        }
+        // if (!this.innerHTML) {
+        //     return;
+        // }
 
         this.setAttribute('role', 'alert');
         this.classList.add("fade");
@@ -41,8 +41,14 @@
 
         // Without the shadow DOM, we have to manipulate the custom element
         // after it has been inserted in the DOM.
+        // const temp = document.importNode(template.content, true);
+        // this.appendChild(temp);
+
+        /// Shadow DOM
+        const root = this.attachShadow({ mode: 'open' });
         const temp = document.importNode(template.content, true);
-        this.appendChild(temp);
+
+        root.appendChild(temp);
     };
 
     ElementPrototype.detachedCallback = function () {
