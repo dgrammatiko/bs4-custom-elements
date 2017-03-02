@@ -1,26 +1,53 @@
 <element name="bs4-alert"><template id="bs4-alert"><style>
-bs4-alert{display:block;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}
-.alert-heading{color:inherit}
-.alert-link{font-weight:700}
-.close{background-color:inherit;border:none;float:right;position:relative;top:-.75rem;right:-1.25rem;padding:.75rem 1.25rem;color:inherit}
-.close span{font-weight: 800;font-size: 1rem;}
-.close:hover{color:black}
-
-.alert-success{background-color:#dff0d8;border-color:#d0e9c6;color:#3c763d}
-.alert-success hr{border-top-color:#c1e2b3}
-.alert-success .alert-link{color:#2b542c}
-.alert-info{background-color:#d9edf7;border-color:#bcdff1;color:#31708f}
-.alert-info hr{border-top-color:#a6d5ec}
-.alert-info .alert-link{color:#245269}
-.alert-warning{background-color:#fcf8e3;border-color:#faf2cc;color:#8a6d3b}
-.alert-warning hr{border-top-color:#f7ecb5}
-.alert-warning .alert-link{color:#66512c}
-.alert-danger{background-color:#f2dede;border-color:#ebcccc;color:#a94442}
-.alert-danger hr{border-top-color:#e4b9b9}
-.alert-danger .alert-link{color:#843534}
-bs4-alert{display:block}
-.fade{opacity:0;transition:opacity .15s linear}
-.fade.show{opacity:1}</style><slot></slot></template><script>
+:host {
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color: #aaa
+}
+:host(.alert-success) {
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d
+}
+:host(.alert-info) {
+    background-color: #d9edf7;
+    border-color: #bcdff1;
+    color: #31708f
+}
+:host(.alert-warning) {
+    background-color: #fcf8e3;
+    border-color: #faf2cc;
+    color: #8a6d3b
+}
+:host(.alert-danger) {
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442
+}
+:host(.fade) {
+    opacity: 0;
+    transition: opacity .15s linear
+}
+:host(.fade.show) {
+    opacity: 1
+}
+::slotted(button.close) {
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    -webkit-appearance: none;
+    float: right;
+    font-size: 1.5rem !important;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5
+}</style><slot></slot></template><script>
 
 (function () {
 	class AlertElement extends HTMLElement {
