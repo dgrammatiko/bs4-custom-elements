@@ -1,1 +1,169 @@
-<element name="bs4-alert"><template id="bs4-alert"><style>:host{padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}:host(.alert-heading){color:inherit}:host(.alert-link){font-weight:700}:host(.close){position:relative;top:-.75rem;right:-1.25rem;padding:.75rem 1.25rem;color:inherit}:host(.alert-success){background-color:#dff0d8;border-color:#d0e9c6;color:#3c763d}:host(.alert-success)>hr{border-top-color:#c1e2b3}:host(.alert-success) .alert-link{color:#2b542c}:host(.alert-info){background-color:#d9edf7;border-color:#bcdff1;color:#31708f}:host(.alert-info) hr{border-top-color:#a6d5ec}:host(.alert-info) .alert-link{color:#245269}:host(.alert-warning){background-color:#fcf8e3;border-color:#faf2cc;color:#8a6d3b}:host(.alert-warning) hr{border-top-color:#f7ecb5}:host(.alert-warning) .alert-link{color:#66512c}:host(.alert-danger){background-color:#f2dede;border-color:#ebcccc;color:#a94442}:host(.alert-danger) hr{border-top-color:#e4b9b9}:host(.alert-danger) .alert-link{color:#843534}:host{display:block}:host(.fade){opacity:0;transition:opacity .15s linear}:host(.fade.show){opacity:1}</style><slot></slot></template><script>!function(){const a=(document._currentScript||document.currentScript).ownerDocument,b=a.querySelector("#bs4-alert");a.importNode(b.content,!0);ElementPrototype=Object.create(HTMLElement.prototype),ElementPrototype.attachedCallback=function(){this.setAttribute("role","alert"),this.classList.add("fade"),this.classList.add("show"),this["data-type"]&&["info","success","warning","danger"].indexOf(this["data-type"])>-1?("success"===this["data-type"]&&this.classList.add("alert-success"),"danger"===this["data-type"]&&this.classList.add("alert-danger"),"info"===this["data-type"]&&this.classList.add("alert-info"),"warning"===this["data-type"]&&this.classList.add("alert-warning")):this.classList.add("alert-info"),this["data-button"]&&"true"===this["data-button"]&&this.appendCloseButton();const a=this.attachShadow({mode:"open"}),c=document.importNode(b.content,!0);a.appendChild(c)},ElementPrototype.detachedCallback=function(){this.removeEventListener("close.bs.alert",arguments.callee),this.removeEventListener("closed.bs.alert",arguments.callee),this.firstChild.removeEventListener("click",arguments.callee)},ElementPrototype.attributeChangedCallback=function(a,b,d){a in c&&c[a].call(this,b,d)},ElementPrototype.close=function(){this.dispatchCustomEvent("close.bs.alert"),("WebkitTransition"in document.documentElement.style||"transition"in document.documentElement.style)&&this.addEventListener("transitionend",function(a){a.target.dispatchCustomEvent("closed.bs.alert"),a.target.parentNode.removeChild(a.target)},!1),this.classList.remove("show"),(!1 in document.documentElement.style||!1 in document.documentElement.style)&&(this.dispatchCustomEvent("closed.bs.alert"),this.parentNode.removeChild(this))},ElementPrototype.dispatchCustomEvent=function(a){var b=new CustomEvent(a);b.relatedTarget=this,this.dispatchEvent(b),this.removeEventListener(a,arguments.callee)},ElementPrototype.appendCloseButton=function(){if(!this.querySelector('button[aria-label="Close"]')){var a=document.createElement("button");a.setAttribute("type","button"),a.setAttribute("aria-label","Close"),a.classList.add("close"),a.innerHTML='<span aria-hidden="true">&times;</span>',this.firstChild?this.insertBefore(a,this.firstChild):this.appendChild(a),this.firstChild.addEventListener("click",function(a){var b=a.target;"button"===a.target.parentNode.tagName.toLowerCase()&&(b=a.target.parentNode),b.parentNode.close()})}},ElementPrototype.removeCloseButton=function(){this.querySelector('button[aria-label="Close"]')&&(this.firstChild.removeEventListener("click",arguments.callee),this.removeChild(this.firstChild))};var c={"data-type":function(a,b){this.classList.contains("alert-"+a)&&["info","warning","danger","success"].indexOf(b)>-1&&(this.classList.remove("alert-"+a),this.classList.add("alert-"+b))},"data-button":function(a,b){"true"===a&&"false"===b&&this.removeCloseButton(),"false"===a&&"true"===b&&this.appendCloseButton()}};Object.defineProperties(ElementPrototype,{"data-type":{get:function(){return this.getAttribute("data-type")},set:function(a){this.setAttribute("data-type",a)}},"data-button":{get:function(){return this.getAttribute("data-button")},set:function(a){this.setAttribute("data-button",a)}}}),document.registerElement("bs4-alert",{prototype:ElementPrototype})}();</script></element>
+<element name="bs4-alert"><template id="bs4-alert"><style>
+bs4-alert{display:block;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}
+.alert-heading{color:inherit}
+.alert-link{font-weight:700}
+.close{background-color:inherit;border:none;float:right;position:relative;top:-.75rem;right:-1.25rem;padding:.75rem 1.25rem;color:inherit}
+.close span{font-weight: 800;font-size: 1rem;}
+.close:hover{color:black}
+
+.alert-success{background-color:#dff0d8;border-color:#d0e9c6;color:#3c763d}
+.alert-success hr{border-top-color:#c1e2b3}
+.alert-success .alert-link{color:#2b542c}
+.alert-info{background-color:#d9edf7;border-color:#bcdff1;color:#31708f}
+.alert-info hr{border-top-color:#a6d5ec}
+.alert-info .alert-link{color:#245269}
+.alert-warning{background-color:#fcf8e3;border-color:#faf2cc;color:#8a6d3b}
+.alert-warning hr{border-top-color:#f7ecb5}
+.alert-warning .alert-link{color:#66512c}
+.alert-danger{background-color:#f2dede;border-color:#ebcccc;color:#a94442}
+.alert-danger hr{border-top-color:#e4b9b9}
+.alert-danger .alert-link{color:#843534}
+bs4-alert{display:block}
+.fade{opacity:0;transition:opacity .15s linear}
+.fade.show{opacity:1}</style><slot></slot></template><script>
+
+(function () {
+	class AlertElement extends HTMLElement {
+
+  		static get observedAttributes() {return ['type', 'button']; }
+  
+		// Define getters/setters for properties. 
+		get type() {
+			return this.getAttribute('type');
+		}
+		set type(val) {
+			if (val) {
+				this.setAttribute('type', '');
+			} else {
+				this.removeAttribute('open');
+			}
+		}
+
+		get button() {
+			return this.getAttribute('button');
+		}
+		set button(val) {
+			if (val === 'true') {
+				this.setAttribute('button', 'true');
+				this.appendCloseButton();
+			} else {
+				this.setAttribute('button', 'false');
+				this.removeCloseButton();
+			}
+		}
+
+		constructor() {
+			// always call super() first in the ctor.
+			super();
+
+			let shadowRoot = this.attachShadow({ mode: 'closed' });
+			let template = doc.querySelector("#bs4-alert");
+
+			shadowRoot.innerHTML = template.innerHTML;
+		}
+
+		connectedCallback() {
+			this.setAttribute('role', 'alert');
+			this.classList.add("fade");
+			this.classList.add("show");
+
+			if (this.type && ['info', 'success', 'warning', 'danger'].indexOf(this.type) > -1) {
+				this.classList.add('alert-' + this.type);
+			} else {
+				// No value, defaults to info
+				this.classList.add('alert-info');
+			}
+			
+			if (this.button && this.button === "true") {
+				this.appendCloseButton();
+			}
+		}
+
+		disconnectedCallback() {
+			this.removeEventListener('close.bs.alert', this);
+			this.removeEventListener('closed.bs.alert', this);
+			this.firstChild.removeEventListener('click', this.firstChild);
+		}
+
+		attributeChangedCallback(attrName, oldVal, newVal) {
+			console.log(attrName)
+	        if (attrName === 'type') {
+	        	console.log(attrName, oldVal, newVal);
+	            if (this.classList.contains('alert-' + oldVal) && ['info', 'warning', 'danger', 'success'].indexOf(newVal) > -1) {
+	                this.classList.remove('alert-' + oldVal);
+	                this.classList.add('alert-' + newVal);
+	            }
+	        }
+	        if (attrName === 'button') {
+	            if (oldVal === "true" && newVal === "false")
+	                this.removeCloseButton();
+	            if (oldVal === "false" && newVal === "true")
+	                this.appendCloseButton();
+	        }
+		}
+
+		close() {
+			this.dispatchCustomEvent('close.bs.alert');
+			if ('WebkitTransition' in document.documentElement.style || 
+			'transition' in document.documentElement.style) {
+				this.addEventListener("transitionend", function (event) {
+					event.target.dispatchCustomEvent('closed.bs.alert');
+					event.target.parentNode.removeChild(event.target);
+				}, false);
+			}
+			this.classList.remove('show');
+			if (!'WebkitTransition' in document.documentElement.style ||
+				!'transition' in document.documentElement.style) {
+				this.dispatchCustomEvent('closed.bs.alert');
+				this.parentNode.removeChild(this);
+			}
+		}
+
+		dispatchCustomEvent(eventName) {
+			var OriginalCustomEvent = new CustomEvent(eventName);
+			OriginalCustomEvent.relatedTarget = this;
+			this.dispatchEvent(OriginalCustomEvent);
+			this.removeEventListener(eventName, this);
+		}
+
+		appendCloseButton() {
+			if (!this.querySelector('button[aria-label="Close"]')) {
+				var closeButton = document.createElement('button');
+				closeButton.setAttribute('type', 'button');
+				closeButton.setAttribute('aria-label', 'Close');
+				closeButton.classList.add('close');
+				closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+
+				if (this.firstChild)
+					this.insertBefore(closeButton, this.firstChild); else this.appendChild(closeButton);
+				// Add the required listener 
+				closeButton.addEventListener('click', function (event) {
+					var element = event.target;
+					if (event.target.parentNode.tagName.toLowerCase() === 'button') {
+						element = event.target.parentNode;
+					}
+
+					element.parentNode.close();
+				});
+			}
+		}
+		removeCloseButton() {
+			if (this.querySelector('button[aria-label="Close"]')) {
+				this.firstChild.removeEventListener('click', this.firstChild)
+				this.removeChild(this.firstChild);
+			}
+		}
+	}
+
+	window.addEventListener('WebComponentsReady', function () {
+		// Register the element 
+		customElements.define('bs4-alert', AlertElement);
+	});
+	// customElements.whenDefined('bs4-alert').then(() => {
+	// 	console.log('ready!');
+	// });
+	const doc = (document._currentScript || document.currentScript).ownerDocument;
+})();
+
+
+</script></element>

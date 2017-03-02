@@ -11,24 +11,11 @@
 		}
 	</style>
 	<meta charset="UTF-8">
-	<title>bs4-custom-elements</title>
+	<title>Alerts on Bootstrap</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/bootstrap.min.css">
 
-	<script>
-		(function () {
-			if ('registerElement' in document
-				&& 'import' in document.createElement('link')
-				&& 'content' in document.createElement('template')) {
-				// platform is good!
-			} else {
-				// polyfill the platform!
-				var e = document.createElement('script');
-				e.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js';
-				document.head.appendChild(e);
-			}
-		})();
-	</script>
+	<script src="assets/webcomponents-loader.js"></script>
 	<link rel="import" href="html/decoupled/bs4-alert.html">
 
 <!--	
