@@ -1,51 +1,33 @@
 (function () {
 
-    var ElementPrototype = Object.create(HTMLElement.prototype);
+	class HTMLCustomElement extends HTMLElement {
+		constructor(_) { return (_ = super(_)).init(), _; }
+		init() { /* override as you like */ }
+	}
 
-    // Lifecycle methods
-    ElementPrototype.createdCallback = function () {
+	class ScrollspyElement extends HTMLElement {
+		/* On creation - ES5 compatible */
+		init() { }
 
-    };
+		/* Attributes to monitor */
+		static get observedAttributes() { return ['attribute']; }
 
-    ElementPrototype.attachedCallback = function () {
+		/* Called when the element is inserted into a document */
+		connectedCallback() {
+		}
 
-    };
+		/* Called when the element is removed from a document */
+		disconnectedCallback() {
+		}
 
-    ElementPrototype.detachedCallback = function () {
+		/* Called when the element is adopted to another document */
+		/* adoptedCallback(oldDocument, newDocument) {} */
 
-    };
+		/* Respond to attribute changes */
+		attributeChangedCallback(attr, oldValue, newValue) {
+		}
 
-    ElementPrototype.attributeChangedCallback = function (attr, oldVal, newVal) {
-        if (attr in attrs) {
-            attrs[attr].call(this, oldVal, newVal);
-        }
-    };
+	}
 
-    // Custom methods
-    ElementPrototype.foo = function () {
-
-    };
-
-    // Attribute handlers
-    var attrs = {
-        'attr': function (oldVal, newVal) {
-
-        }
-    };
-
-    // Property handlers
-    Object.defineProperties(ElementPrototype, {
-        'prop': {
-            get: function () {
-
-            },
-            set: function (newVal) {
-
-            }
-        }
-    });
-
-    // Register the element
-    window.CustomElement = document.registerElement('dgt41-scrollspy', { prototype: ElementPrototype });
-
+{{REGISTERELEMENT}} /* This will be replaced by the build script */
 })();

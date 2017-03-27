@@ -1,164 +1,155 @@
 (function () {
-    var upTo = function (el, tagName) {
-        tagName = tagName.toLowerCase();
 
-        while (el && el.parentNode) {
-            el = el.parentNode;
-            if (el.tagName && el.tagName.toLowerCase() == tagName) {
-                return el;
-            }
-        }
-        return null;
-    };
+	var upTo = function (el, tagName) {
+		tagName = tagName.toLowerCase();
 
-    var ElementPrototype = Object.create(HTMLElement.prototype);
+		while (el && el.parentNode) {
+			el = el.parentNode;
+			if (el.tagName && el.tagName.toLowerCase() == tagName) {
+				return el;
+			}
+		}
+		return null;
+	};
 
-    // Lifecycle methods
-    ElementPrototype.createdCallback = function () {
+	class HTMLCustomElement extends HTMLElement {
+		constructor(_) { return (_ = super(_)).init(), _; }
+		init() { /* override as you like */ }
+	}
 
-    };
+	class CarouselElement extends HTMLElement {
+		/* On creation - ES5 compatible */
+		init() {
+		}
 
-    ElementPrototype.attachedCallback = function () {
-        var content = this.innerHTML;
-        var elHeight, elWidth;
+		/* Attributes to monitor */
+		static get observedAttributes() { return ['attribute']; }
 
-        if (!this.innerHTML) return;
+		/* Called when the element is inserted into a document */
+		connectedCallback() {
+			var content = this.innerHTML;
+			var elHeight, elWidth;
 
-        this.innerHTML = '';
-        var container = document.createElement('div');
-        container.classList.add('carousel');
-        container.classList.add('slide');
-        container.innerHTML = content;
-        this.appendChild(container);
+			if (!this.innerHTML) return;
 
-        var orderedListCont = this.querySelector('.carousel-indicators');
-        if (orderedListCont)
-            var liElems = orderedListCont.querySelectorAll('li');
-        if (liElems)
-            for (var i = 0, l = liElems.length; i < l; i++) {
-                liElems[i].setAttribute('data-slide-to', i);
-                liElems[i].addEventListener('click', function (event) {
-                    event.preventDefault();
-                    var container = upTo(event.target, 'dgt41-carousel');
-                    container.resetAll();
-                    var slides = container.querySelectorAll('.carousel-item');
-                    event.target.classList.add('active');
-                    slides[parseInt(event.target.getAttribute('data-slide-to'))].classList.add('active');
-                })
-            }
+			this.innerHTML = '';
+			var container = document.createElement('div');
+			container.classList.add('carousel');
+			container.classList.add('slide');
+			container.innerHTML = content;
+			this.appendChild(container);
+
+			var orderedListCont = this.querySelector('.carousel-indicators');
+			if (orderedListCont)
+				var liElems = orderedListCont.querySelectorAll('li');
+			if (liElems)
+				for (var i = 0, l = liElems.length; i < l; i++) {
+					liElems[i].setAttribute('data-slide-to', i);
+					liElems[i].addEventListener('click', function (event) {
+						event.preventDefault();
+						var container = upTo(event.target, 'bs4-carousel');
+						container.resetAll();
+						var slides = container.querySelectorAll('.carousel-item');
+						event.target.classList.add('active');
+						slides[parseInt(event.target.getAttribute('data-slide-to'))].classList.add('active');
+					})
+				}
 
 
-        // var activeEl = container.querySelector('.active');
-        // container.style.height = activeEl.style.height
+			// var activeEl = container.querySelector('.active');
+			// container.style.height = activeEl.style.height
 
-        var prevBtn = this.querySelector('.carousel-control-prev');
-        var nextBtn = this.querySelector('.carousel-control-next');
+			var prevBtn = this.querySelector('.carousel-control-prev');
+			var nextBtn = this.querySelector('.carousel-control-next');
 
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function (event) {
-                event.preventDefault();
-                var container = upTo(event.target, 'dgt41-carousel');
-                container.setPrevious();
-            })
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function (event) {
-                event.preventDefault();
-                var container = upTo(event.target, 'dgt41-carousel');
-                container.setNext();
-            })
-        }
-    };
+			if (prevBtn) {
+				prevBtn.addEventListener('click', function (event) {
+					event.preventDefault();
+					var container = upTo(event.target, 'bs4-carousel');
+					container.setPrevious();
+				})
+			}
+			if (nextBtn) {
+				nextBtn.addEventListener('click', function (event) {
+					event.preventDefault();
+					var container = upTo(event.target, 'bs4-carousel');
+					container.setNext();
+				})
+			}
+		}
 
-    ElementPrototype.detachedCallback = function () {
+		/* Called when the element is removed from a document */
+		disconnectedCallback() {
 
-    };
+		}
 
-    ElementPrototype.attributeChangedCallback = function (attr, oldVal, newVal) {
-        if (attr in attrs) {
-            attrs[attr].call(this, oldVal, newVal);
-        }
-    };
+		/* Called when the element is adopted to another document */
+		/* adoptedCallback(oldDocument, newDocument) {} */
 
-    // Custom methods
-    ElementPrototype.setPrevious = function () {
-        var slides = this.querySelectorAll('.carousel-item');
-        var orderedListCont = this.querySelector('.carousel-indicators');
-        var liElems = orderedListCont.querySelectorAll('li');
-        var elHeight, elWidth;
-        if (slides[0].classList.contains('active')) {
-            slides[0].classList.remove('active');
-            liElems[0].classList.remove('active');
-            slides[slides.length - 1].classList.add('active');
-            liElems[slides.length - 1].classList.add('active');
-        } else {
-            for (var i = 0, l = slides.length; i < l; i++) {
-                if (slides[i].classList.contains('active')) {
-                    slides[i].classList.remove('active');
-                    liElems[i].classList.remove('active');
-                    slides[i - 1].classList.add('active');
-                    liElems[i - 1].classList.add('active');
-                    break;
-                }
-            }
-        }
-    };
+		/* Respond to attribute changes */
+		attributeChangedCallback(attr, oldValue, newValue) {
 
-    ElementPrototype.setNext = function () {
-        var slides = this.querySelectorAll('.carousel-item');
-        var orderedListCont = this.querySelector('.carousel-indicators');
-        var liElems = orderedListCont.querySelectorAll('li');
-        var elHeight, elWidth;
-        if (slides[slides.length - 1].classList.contains('active')) {
-            slides[slides.length - 1].classList.remove('active');
-            liElems[slides.length - 1].classList.remove('active');
-            slides[0].classList.add('active');
-            liElems[0].classList.add('active');
-        } else {
-            for (var i = 0, l = slides.length; i < l; i++) {
-                if (slides[i].classList.contains('active')) {
-                    slides[i].classList.remove('active');
-                    liElems[i].classList.remove('active');
-                    slides[i + 1].classList.add('active');
-                    liElems[i + 1].classList.add('active');
-                    break;
-                }
-            }
-        }
-    };
+		}
 
-    ElementPrototype.resetAll = function () {
-        var slides = this.querySelectorAll('.carousel-item');
-        var orderedListCont = this.querySelector('.carousel-indicators');
-        var liElems = orderedListCont.querySelectorAll('li');
-        for (var i = 0, l = slides.length; i < l; i++) {
-            if (slides[i].classList.contains('active')) {
-                slides[i].classList.remove('active');
-                liElems[i].classList.remove('active');
-                break;
-            }
-        }
-    };
-    // Attribute handlers
-    var attrs = {
-        'attr': function (oldVal, newVal) {
+		setPrevious() {
+			var slides = this.querySelectorAll('.carousel-item');
+			var orderedListCont = this.querySelector('.carousel-indicators');
+			var liElems = orderedListCont.querySelectorAll('li');
+			var elHeight, elWidth;
+			if (slides[0].classList.contains('active')) {
+				slides[0].classList.remove('active');
+				liElems[0].classList.remove('active');
+				slides[slides.length - 1].classList.add('active');
+				liElems[slides.length - 1].classList.add('active');
+			} else {
+				for (var i = 0, l = slides.length; i < l; i++) {
+					if (slides[i].classList.contains('active')) {
+						slides[i].classList.remove('active');
+						liElems[i].classList.remove('active');
+						slides[i - 1].classList.add('active');
+						liElems[i - 1].classList.add('active');
+						break;
+					}
+				}
+			}
+		}
 
-        }
-    };
+		setNext() {
+			var slides = this.querySelectorAll('.carousel-item');
+			var orderedListCont = this.querySelector('.carousel-indicators');
+			var liElems = orderedListCont.querySelectorAll('li');
+			var elHeight, elWidth;
+			if (slides[slides.length - 1].classList.contains('active')) {
+				slides[slides.length - 1].classList.remove('active');
+				liElems[slides.length - 1].classList.remove('active');
+				slides[0].classList.add('active');
+				liElems[0].classList.add('active');
+			} else {
+				for (var i = 0, l = slides.length; i < l; i++) {
+					if (slides[i].classList.contains('active')) {
+						slides[i].classList.remove('active');
+						liElems[i].classList.remove('active');
+						slides[i + 1].classList.add('active');
+						liElems[i + 1].classList.add('active');
+						break;
+					}
+				}
+			}
+		}
 
-    // Property handlers
-    Object.defineProperties(ElementPrototype, {
-        'prop': {
-            get: function () {
+		resetAll() {
+			var slides = this.querySelectorAll('.carousel-item');
+			var orderedListCont = this.querySelector('.carousel-indicators');
+			var liElems = orderedListCont.querySelectorAll('li');
+			for (var i = 0, l = slides.length; i < l; i++) {
+				if (slides[i].classList.contains('active')) {
+					slides[i].classList.remove('active');
+					liElems[i].classList.remove('active');
+					break;
+				}
+			}
+		}
+	}
 
-            },
-            set: function (newVal) {
-
-            }
-        }
-    });
-
-    // Register the element
-    window.CustomElement = document.registerElement('dgt41-carousel', { prototype: ElementPrototype });
-
+{{REGISTERELEMENT}} /* This will be replaced by the build script */
 })();

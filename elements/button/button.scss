@@ -2,7 +2,21 @@
 // @import "node_modules/bootstrap/scss/mixins";
 // @import "node_modules/bootstrap/scss/button";
 
-dgt41-button{
+bs4-button{
     cursor: pointer;
 }
+bs4-button[type=button] {
+	-webkit-appearance: none;
+}
 
+[type="buttons"] {
+  > .btn,
+  > .btn-group > .btn {
+    input[type="radio"],
+    input[type="checkbox"] {
+      position: absolute;
+      clip: rect(0,0,0,0);
+      pointer-events: none;
+    }
+  }
+}

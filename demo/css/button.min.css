@@ -1,0 +1,1 @@
+bs4-button{cursor:pointer}bs4-button[type=button]{-webkit-appearance:none}[type=buttons]>.btn input[type=checkbox],[type=buttons]>.btn input[type=radio],[type=buttons]>.btn-group>.btn input[type=checkbox],[type=buttons]>.btn-group>.btn input[type=radio]{position:absolute;clip:rect(0,0,0,0);pointer-events:none}

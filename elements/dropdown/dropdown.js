@@ -1,100 +1,89 @@
 (function () {
-    // walk up the tree till tagName
-    var upTo = function (el, tagName) {
-        tagName = tagName.toLowerCase();
+	// walk up the tree till tagName
+	var upTo = function (el, tagName) {
+		tagName = tagName.toLowerCase();
 
-        while (el && el.parentNode) {
-            el = el.parentNode;
-            if (el.tagName && el.tagName.toLowerCase() == tagName) {
-                return el;
-            }
-        }
-        return null;
-    };
+		while (el && el.parentNode) {
+			el = el.parentNode;
+			if (el.tagName && el.tagName.toLowerCase() == tagName) {
+				return el;
+			}
+		}
+		return null;
+	};
 
-    var ElementPrototype = Object.create(HTMLElement.prototype);
+	class HTMLCustomElement extends HTMLElement {
+		constructor(_) { return (_ = super(_)).init(), _; }
+		init() { /* override as you like */ }
+	}
 
-    // Lifecycle methods
-    ElementPrototype.createdCallback = function () {
-    };
+	class DropdownElement extends HTMLElement {
+		/* On creation - ES5 compatible */
+		init() { }
 
-    ElementPrototype.attachedCallback = function () {
-        var button = this.querySelector('button.dropdown-toggle');
-        var link = this.querySelector('a.dropdown-toggle');
-        var innerLinks = this.querySelectorAll('.dropdown-menu > a');
-        var triggerEl;
+		/* Attributes to monitor */
+		// static get observedAttributes() { return ['type', 'toggle']; }
 
-        if (!button && !link) return;
+		/* Called when the element is inserted into a document */
+		connectedCallback() {
+			var button = this.querySelector('button.dropdown-toggle');
+			var link = this.querySelector('a.dropdown-toggle');
+			var innerLinks = this.querySelectorAll('.dropdown-menu > a');
+			var triggerEl;
 
-        if (button) {
-            triggerEl = button;
-        } else {
-            triggerEl = link;
-        }
+			if (!button && !link) return;
 
-        if (!triggerEl.id) return;
-        //var children = [].slice.call( menu[getElementsByTagName]('*'));
-        this.classList.add('dropdown');
-        this.style.display = 'block';
-        triggerEl.setAttribute('aria-haspopup', 'true');
-        triggerEl.setAttribute('aria-expanded', 'false');
+			if (button) {
+				triggerEl = button;
+			} else {
+				triggerEl = link;
+			}
 
-        triggerEl.addEventListener('click', function (event) {
-            var container = upTo(event.target, 'dgt41-dropdown');
+			if (!triggerEl.id) return;
+			//var children = [].slice.call( menu[getElementsByTagName]('*'));
+			this.classList.add('dropdown');
+			this.style.display = 'block';
+			triggerEl.setAttribute('aria-haspopup', 'true');
+			triggerEl.setAttribute('aria-expanded', 'false');
 
-            if (container && container.classList.contains('show')) {
-                container.classList.remove('show');
-                event.target.setAttribute('aria-expanded', 'false')
-            } else {
-                container.classList.add('show');
-                event.target.setAttribute('aria-expanded', 'true')
-            }
-        });
+			triggerEl.addEventListener('click', function (event) {
+				var container = upTo(event.target, 'bs4-dropdown');
 
-        for (var i = 0, l = innerLinks.length; i < l; i++) {
-            innerLinks[i].addEventListener('click', function (event) {
-                var container = upTo(event.target, 'dgt41-dropdown');
-                container.close();
-            })
-        }
-    };
+				if (container && container.classList.contains('show')) {
+					container.classList.remove('show');
+					event.target.setAttribute('aria-expanded', 'false')
+				} else {
+					container.classList.add('show');
+					event.target.setAttribute('aria-expanded', 'true')
+				}
+			});
 
-    ElementPrototype.detachedCallback = function () {
-    };
+			for (var i = 0, l = innerLinks.length; i < l; i++) {
+				innerLinks[i].addEventListener('click', function (event) {
+					var container = upTo(event.target, 'bs4-dropdown');
+					container.close();
+				})
+			}
+		}
 
-    // Custom methods
-    ElementPrototype.close = function () {
-        var button = this.querySelector('.dropdown-toggle');
-        this.classList.remove('show');
-        button.setAttribute("aria-expanded", "false");
-    };
+		/* Called when the element is removed from a document */
+		disconnectedCallback() {
+		}
 
-    // // Attribute handlers
-    // var attrs = {
-    //     'attr': function (oldVal, newVal) {
+		/* Called when the element is adopted to another document */
+		/* adoptedCallback(oldDocument, newDocument) {} */
 
-    //     }
-    // };
+		/* Respond to attribute changes */
+		attributeChangedCallback(attr, oldValue, newValue) {
+		}
 
-    // ElementPrototype.attributeChangedCallback = function (attr, oldVal, newVal) {
-    //     if (attr in attrs) {
-    //         attrs[attr].call(this, oldVal, newVal);
-    //     }
-    // };
+		close() {
+			var button = this.querySelector('.dropdown-toggle');
+			this.classList.remove('show');
+			button.setAttribute("aria-expanded", "false");
+		}
 
-    // // Property handlers
-    // Object.defineProperties(ElementPrototype, {
-    //     'prop': {
-    //         get: function () {
+	}
 
-    //         },
-    //         set: function (newVal) {
-
-    //         }
-    //     }
-    // });
-
-    // Register the element
-    window.CustomElement = document.registerElement('dgt41-dropdown', { prototype: ElementPrototype });
-
+{{REGISTERELEMENT}} /* This will be replaced by the build script */
 })();
