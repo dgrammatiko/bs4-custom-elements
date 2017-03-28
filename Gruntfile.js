@@ -101,7 +101,7 @@ var plain = `
 					dest: 'dist/js/' + element + '.min.js'
 				}]);
 				grunt.config.set('browserify.' + element + '.options', {
-					transform: [["babelify", { "presets": ["babili"] }]]
+					transform: [["babelify", { "presets": ["babili", "es2015"] }]]
 				});
 
 				grunt.task.run('browserify:' + element);
@@ -112,7 +112,7 @@ var plain = `
 					dest: 'elements/' + element + '/' + element + '_a.min.js'
 				}]);
 				grunt.config.set('browserify.' + element + '_a.options', {
-					transform: [["babelify", { "presets": ["babili"] }]]
+					transform: [["babelify", { "presets": ["babili", "es2015"] }]]
 				});
 
 				grunt.task.run('browserify:' + element + '_a');
