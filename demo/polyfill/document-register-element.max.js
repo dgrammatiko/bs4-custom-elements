@@ -431,45 +431,45 @@ THE SOFTWARE.
       ]
     }
   }));
-  
-  
-    
+
+
+
   // passed at runtime, configurable
   // via nodejs module
   if (!polyfill) polyfill = 'auto';
-  
+
   var
     // V0 polyfill entry
     REGISTER_ELEMENT = 'registerElement',
-  
+
     // IE < 11 only + old WebKit for attributes + feature detection
     EXPANDO_UID = '__' + REGISTER_ELEMENT + (window.Math.random() * 10e4 >> 0),
-  
+
     // shortcuts and costants
     ADD_EVENT_LISTENER = 'addEventListener',
     ATTACHED = 'attached',
     CALLBACK = 'Callback',
     DETACHED = 'detached',
     EXTENDS = 'extends',
-  
+
     ATTRIBUTE_CHANGED_CALLBACK = 'attributeChanged' + CALLBACK,
     ATTACHED_CALLBACK = ATTACHED + CALLBACK,
     CONNECTED_CALLBACK = 'connected' + CALLBACK,
     DISCONNECTED_CALLBACK = 'disconnected' + CALLBACK,
     CREATED_CALLBACK = 'created' + CALLBACK,
     DETACHED_CALLBACK = DETACHED + CALLBACK,
-  
+
     ADDITION = 'ADDITION',
     MODIFICATION = 'MODIFICATION',
     REMOVAL = 'REMOVAL',
-  
+
     DOM_ATTR_MODIFIED = 'DOMAttrModified',
     DOM_CONTENT_LOADED = 'DOMContentLoaded',
     DOM_SUBTREE_MODIFIED = 'DOMSubtreeModified',
-  
+
     PREFIX_TAG = '<',
     PREFIX_IS = '=',
-  
+
     // valid and invalid node names
     validName = /^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/,
     invalidNames = [
@@ -482,38 +482,38 @@ THE SOFTWARE.
       'FONT-FACE-NAME',
       'MISSING-GLYPH'
     ],
-  
+
     // registered types and their prototypes
     types = [],
     protos = [],
-  
+
     // to query subnodes
     query = '',
-  
+
     // html shortcut used to feature detect
     documentElement = document.documentElement,
-  
+
     // ES5 inline helpers || basic patches
     indexOf = types.indexOf || function (v) {
       for(var i = this.length; i-- && this[i] !== v;){}
       return i;
     },
-  
+
     // other helpers / shortcuts
     OP = Object.prototype,
     hOP = OP.hasOwnProperty,
     iPO = OP.isPrototypeOf,
-  
+
     defineProperty = Object.defineProperty,
     empty = [],
     gOPD = Object.getOwnPropertyDescriptor,
     gOPN = Object.getOwnPropertyNames,
     gPO = Object.getPrototypeOf,
     sPO = Object.setPrototypeOf,
-  
+
     // jshint proto: true
     hasProto = !!Object.__proto__,
-  
+
     // V1 helpers
     fixGetClass = false,
     DRECEV1 = '__dreCEv1',
@@ -565,13 +565,13 @@ THE SOFTWARE.
     waitingList = Dict(null),
     nodeNames = new Map(),
     secondArgument = String,
-  
+
     // used to create unique instances
     create = Object.create || function Bridge(proto) {
       // silly broken polyfill probably ever used but short enough to work
       return proto ? ((Bridge.prototype = proto), new Bridge()) : this;
     },
-  
+
     // will set the prototype if possible
     // or copy over all properties
     setPrototype = sPO || (
@@ -609,25 +609,25 @@ THE SOFTWARE.
           return o;
         }
     )),
-  
+
     // DOM shortcuts and helpers, if any
-  
+
     MutationObserver = window.MutationObserver ||
                        window.WebKitMutationObserver,
-  
+
     HTMLElementPrototype = (
       window.HTMLElement ||
       window.Element ||
       window.Node
     ).prototype,
-  
+
     IE8 = !iPO.call(HTMLElementPrototype, documentElement),
-  
+
     safeProperty = IE8 ? function (o, k, d) {
       o[k] = d.value;
       return o;
     } : defineProperty,
-  
+
     isValidNode = IE8 ?
       function (node) {
         return node.nodeType === 1;
@@ -635,9 +635,9 @@ THE SOFTWARE.
       function (node) {
         return iPO.call(HTMLElementPrototype, node);
       },
-  
+
     targets = IE8 && [],
-  
+
     attachShadow = HTMLElementPrototype.attachShadow,
     cloneNode = HTMLElementPrototype.cloneNode,
     dispatchEvent = HTMLElementPrototype.dispatchEvent,
@@ -645,18 +645,18 @@ THE SOFTWARE.
     hasAttribute = HTMLElementPrototype.hasAttribute,
     removeAttribute = HTMLElementPrototype.removeAttribute,
     setAttribute = HTMLElementPrototype.setAttribute,
-  
+
     // replaced later on
     createElement = document.createElement,
     patchedCreateElement = createElement,
-  
+
     // shared observer for all attributes
     attributesObserver = MutationObserver && {
       attributes: true,
       characterData: true,
       attributeOldValue: true
     },
-  
+
     // useful to detect only if there's no MutationObserver
     DOMAttrModified = MutationObserver || function(e) {
       doesNotSupportDOMAttrModified = false;
@@ -665,38 +665,38 @@ THE SOFTWARE.
         DOMAttrModified
       );
     },
-  
+
     // will both be used to make DOMNodeInserted asynchronous
     asapQueue,
     asapTimer = 0,
-  
+
     // internal flags
     V0 = REGISTER_ELEMENT in document,
     setListener = true,
     justSetup = false,
     doesNotSupportDOMAttrModified = true,
     dropDomContentLoaded = true,
-  
+
     // needed for the innerHTML helper
     notFromInnerHTMLHelper = true,
-  
+
     // optionally defined later on
     onSubtreeModified,
     callDOMAttrModified,
     getAttributesMirror,
     observer,
     observe,
-  
+
     // based on setting prototype capability
     // will check proto or the expando attribute
     // in order to setup the node once
     patchIfNotAlready,
     patch
   ;
-  
+
   // only if needed
   if (!V0) {
-  
+
     if (sPO || hasProto) {
         patchIfNotAlready = function (node, proto) {
           if (!iPO.call(proto, node)) {
@@ -713,7 +713,7 @@ THE SOFTWARE.
         };
         patch = patchIfNotAlready;
     }
-  
+
     if (IE8) {
       doesNotSupportDOMAttrModified = false;
       (function (){
@@ -879,7 +879,7 @@ THE SOFTWARE.
         };
       }
     }
-  
+
     // set as enumerable, writable and configurable
     document[REGISTER_ELEMENT] = function registerElement(type, options) {
       upperType = type.toUpperCase();
@@ -941,10 +941,10 @@ THE SOFTWARE.
           document[ADD_EVENT_LISTENER]('DOMNodeInserted', onDOMNode(ATTACHED));
           document[ADD_EVENT_LISTENER]('DOMNodeRemoved', onDOMNode(DETACHED));
         }
-  
+
         document[ADD_EVENT_LISTENER](DOM_CONTENT_LOADED, onReadyStateChange);
         document[ADD_EVENT_LISTENER]('readystatechange', onReadyStateChange);
-  
+
         HTMLElementPrototype.cloneNode = function (deep) {
           var
             node = cloneNode.call(this, !!deep),
@@ -955,20 +955,20 @@ THE SOFTWARE.
           return node;
         };
       }
-  
+
       if (justSetup) return (justSetup = false);
-  
+
       if (-2 < (
         indexOf.call(types, PREFIX_IS + upperType) +
         indexOf.call(types, PREFIX_TAG + upperType)
       )) {
         throwTypeError(type);
       }
-  
+
       if (!validName.test(upperType) || -1 < indexOf.call(invalidNames, upperType)) {
         throw new Error('The type ' + type + ' is invalid');
       }
-  
+
       var
         constructor = function () {
           return extending ?
@@ -981,34 +981,34 @@ THE SOFTWARE.
         upperType,
         i
       ;
-  
+
       if (extending && -1 < (
         indexOf.call(types, PREFIX_TAG + nodeName)
       )) {
         throwTypeError(nodeName);
       }
-  
+
       i = types.push((extending ? PREFIX_IS : PREFIX_TAG) + upperType) - 1;
-  
+
       query = query.concat(
         query.length ? ',' : '',
         extending ? nodeName + '[is="' + type.toLowerCase() + '"]' : nodeName
       );
-  
+
       constructor.prototype = (
         protos[i] = hOP.call(opt, 'prototype') ?
           opt.prototype :
           create(HTMLElementPrototype)
       );
-  
+
       if (query.length) loopAndVerify(
         document.querySelectorAll(query),
         ATTACHED
       );
-  
+
       return constructor;
     };
-  
+
     document.createElement = (patchedCreateElement = function (localName, typeExtension) {
       var
         is = getIs(typeExtension),
@@ -1033,9 +1033,9 @@ THE SOFTWARE.
       if (setup) patch(node, protos[i]);
       return node;
     });
-  
+
   }
-  
+
   function ASAP() {
     var queue = asapQueue.splice(0, asapQueue.length);
     asapTimer = 0;
@@ -1045,20 +1045,20 @@ THE SOFTWARE.
       );
     }
   }
-  
+
   function loopAndVerify(list, action) {
     for (var i = 0, length = list.length; i < length; i++) {
       verifyAndSetupAndAction(list[i], action);
     }
   }
-  
+
   function loopAndSetup(list) {
     for (var i = 0, length = list.length, node; i < length; i++) {
       node = list[i];
       patch(node, protos[getTypeIndex(node)]);
     }
   }
-  
+
   function executeAction(action) {
     return function (node) {
       if (isValidNode(node)) {
@@ -1070,7 +1070,7 @@ THE SOFTWARE.
       }
     };
   }
-  
+
   function getTypeIndex(target) {
     var
       is = getAttribute.call(target, 'is'),
@@ -1084,11 +1084,11 @@ THE SOFTWARE.
     ;
     return is && -1 < i && !isInQSA(nodeName, is) ? -1 : i;
   }
-  
+
   function isInQSA(name, type) {
     return -1 < query.indexOf(name + '[is="' + type + '"]');
   }
-  
+
   function onDOMAttrModified(e) {
     var
       node = e.currentTarget,
@@ -1116,7 +1116,7 @@ THE SOFTWARE.
       );
     }
   }
-  
+
   function onDOMNode(action) {
     var executor = executeAction(action);
     return function (e) {
@@ -1125,7 +1125,7 @@ THE SOFTWARE.
       asapTimer = setTimeout(ASAP, 1);
     };
   }
-  
+
   function onReadyStateChange(e) {
     if (dropDomContentLoaded) {
       dropDomContentLoaded = false;
@@ -1137,14 +1137,14 @@ THE SOFTWARE.
     );
     if (IE8) purge();
   }
-  
+
   function patchedSetAttribute(name, value) {
     // jshint validthis:true
     var self = this;
     setAttribute.call(self, name, value);
     onSubtreeModified.call(self, {target: self});
   }
-  
+
   function setupNode(node, proto) {
     setPrototype(node, proto);
     if (observer) {
@@ -1163,7 +1163,7 @@ THE SOFTWARE.
       node.created = false;
     }
   }
-  
+
   function purge() {
     for (var
       node,
@@ -1179,11 +1179,11 @@ THE SOFTWARE.
       }
     }
   }
-  
+
   function throwTypeError(type) {
     throw new Error('A ' + type + ' type is already registered');
   }
-  
+
   function verifyAndSetupAndAction(node, action) {
     var
       fn,
@@ -1207,12 +1207,12 @@ THE SOFTWARE.
       if (i && (fn = node[action + CALLBACK])) fn.call(node);
     }
   }
-  
-  
-  
+
+
+
   // V1 in da House!
   function CustomElementRegistry() {}
-  
+
   CustomElementRegistry.prototype = {
     constructor: CustomElementRegistry,
     // a workaround for the stubborn WebKit
@@ -1245,7 +1245,7 @@ THE SOFTWARE.
       } :
       whenDefined
   };
-  
+
   function CERDefine(name, Class, options) {
     var
       is = options && options[EXTENDS] || '',
@@ -1298,17 +1298,17 @@ THE SOFTWARE.
     whenDefined(name);
     waitingList[name].r();
   }
-  
+
   function get(name) {
     var info = constructors[name.toUpperCase()];
     return info && info.constructor;
   }
-  
+
   function getIs(options) {
     return typeof options === 'string' ?
         options : (options && options.is || '');
   }
-  
+
   function notifyAttributes(self) {
     var
       callback = self[ATTRIBUTE_CHANGED_CALLBACK],
@@ -1326,7 +1326,7 @@ THE SOFTWARE.
       );
     }
   }
-  
+
   function whenDefined(name) {
     name = name.toUpperCase();
     if (!(name in waitingList)) {
@@ -1337,7 +1337,7 @@ THE SOFTWARE.
     }
     return waitingList[name].p;
   }
-  
+
   function polyfillV1() {
     if (customElements) delete window.customElements;
     defineProperty(window, 'customElements', {
@@ -1393,7 +1393,7 @@ THE SOFTWARE.
       document[REGISTER_ELEMENT]('');
     }
   }
-  
+
   // if customElements is not there at all
   if (!customElements || polyfill === 'force') polyfillV1();
   else {
@@ -1423,7 +1423,7 @@ THE SOFTWARE.
       polyfillV1();
     }
   }
-  
+
   try {
     createElement.call(document, 'a', 'a');
   } catch(FireFox) {
@@ -1431,5 +1431,5 @@ THE SOFTWARE.
       return {is: is};
     };
   }
-  
+
 }(window));

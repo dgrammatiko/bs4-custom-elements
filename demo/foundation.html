@@ -5,22 +5,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foundation</title>
-	<link rel="stylesheet" href="assets/foundation.min.css">
+		<link rel="stylesheet" href="assets/foundation.min.css">
 
-		<script src="polyfill/webcomponents-loader.js"></script>
-		<link rel="import" href="html/bs4-alert.html">
-		<link rel="import" href="html/bs4-button.html">
-		<link rel="import" href="html/bs4-carousel.html">
-		<link rel="import" href="html/bs4-collapse.html">
-		<link rel="import" href="html/bs4-modal.html">
-		<link rel="import" href="html/bs4-tabs.html">
-		<link rel="import" href="html/bs4-accordion.html">
-		<link rel="import" href="html/bs4-dropdown.html">
+		<link rel="stylesheet" href="css/accordion.min.css">
+		<link rel="stylesheet" href="css/alert.min.css">
+		<link rel="stylesheet" href="css/button.min.css">
 
+		<script src="polyfill/ce-loader.js"></script>
 
-<link rel="stylesheet" href="css/accordion.min.css">
-<link rel="stylesheet" href="css/alert.min.css">
-<link rel="stylesheet" href="css/button.min.css">
+<!--
+		// IE 10 needs also these polyfills
+		<script src="https://cdn.polyfill.io/v2/polyfill.js?features=Object.setPrototypeOf,CustomEvent"></script>
+-->
+
   </head>
   <body>
     <div class="container">
@@ -155,10 +152,10 @@
 					<img class="d-block img-fluid" src="img/2.jpg" alt="Second slide">
 				</div>
 				<div class="carousel-item">
-					<img class="d-block img-fluid" src="img/1.jpg" alt="Third slide">
+					<img class="d-block img-fluid" src="img/3.jpg" alt="Third slide">
 				</div>
 				<div class="carousel-item">
-					<img class="d-block img-fluid" src="img/3.jpg" alt="Fourth slide">
+					<img class="d-block img-fluid" src="img/4.jpg" alt="Fourth slide">
 				</div>
 			</div>
 			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -302,5 +299,13 @@
 
 
     </div>
+		<script src="js/alert.min.js" defer></script>
+<script src="js/button.min.js" defer></script>
+<script src="js/carousel.min.js" defer></script>
+<script src="js/collapse.min.js" defer></script>
+<script src="js/modal.min.js" defer></script>
+<script src="js/tabs.min.js" defer></script>
+<script src="js/accordion.min.js" defer></script>
+<script src="js/dropdown.min.js" defer></script>
   </body>
 </html>

@@ -40,14 +40,7 @@
 		return parents;
 	};
 
-	class HTMLCustomElement extends HTMLElement {
-		constructor(_) { return (_ = super(_)).init(), _; }
-		init() { /* override as you like */ }
-	}
-
 	class ModalElement extends HTMLElement {
-		/* On creation - ES5 compatible */
-		init() { }
 
 		/* Attributes to monitor */
 		// static get observedAttributes() { return ['type', 'toggle']; }

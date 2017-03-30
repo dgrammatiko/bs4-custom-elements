@@ -1,13 +1,13 @@
 (function () {
 
-	class HTMLCustomElement extends HTMLElement {
-		constructor(_) { return (_ = super(_)).init(), _; }
-		init() { /* override as you like */ }
-	}
+	// class HTMLCustomElement extends HTMLElement {
+	// 	constructor(_) { return (_ = super(_)).init(), _; }
+	// 	init() { /* override as you like */ }
+	// }
 
 	class ScrollspyElement extends HTMLElement {
-		/* On creation - ES5 compatible */
-		init() { }
+		// /* On creation - ES5 compatible */
+		// init() { }
 
 		/* Attributes to monitor */
 		static get observedAttributes() { return ['attribute']; }

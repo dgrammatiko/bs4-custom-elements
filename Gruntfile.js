@@ -77,7 +77,7 @@ var webComponents = `
 	});
 	`;
 var plain = `
-	customElements.define('bs4-` + element + `', {{ELEMENTCLASS}});
+	if (window.customElements) customElements.define('bs4-` + element + `', {{ELEMENTCLASS}});
 	`;
 			var tmpJs = '', tmpJsPlain = '';
 			if (grunt.file.exists('elements/' + element + '/' + element + '.js')) {
@@ -101,21 +101,28 @@ var plain = `
 					dest: 'dist/js/' + element + '.min.js'
 				}]);
 				grunt.config.set('browserify.' + element + '.options', {
-					transform: [["babelify", { "presets": ["babili", "es2015"] }]]
+					transform: [["babelify", {
+						"plugins": ["transform-custom-element-classes", "transform-es2015-classes"],
+						"presets": ["babili", "es2015"] //
+					}]]
 				});
 
 				grunt.task.run('browserify:' + element);
 
 				// As Html
-				grunt.config.set('browserify.' + element + '_a.files', [{
-					src: 'elements/' + element + '/' + element + '_a.js',
-					dest: 'elements/' + element + '/' + element + '_a.min.js'
-				}]);
-				grunt.config.set('browserify.' + element + '_a.options', {
-					transform: [["babelify", { "presets": ["babili", "es2015"] }]]
-				});
+				// grunt.config.set('browserify.' + element + '_a.files', [{
+				// 	src: 'elements/' + element + '/' + element + '_a.js',
+				// 	dest: 'elements/' + element + '/' + element + '_a.min.js'
+				// }]);
+				// grunt.config.set('browserify.' + element + '_a.options', {
 
-				grunt.task.run('browserify:' + element + '_a');
+				// 	transform: [["babelify", {
+				// 		//"plugins": ["transform-custom-element-classes", "transform-es2015-classes"],
+				// 		"presets": ["babili", "es2015"]
+				// 	}]]
+				// });
+
+				// grunt.task.run('browserify:' + element + '_a');
 			}
 		};
 
