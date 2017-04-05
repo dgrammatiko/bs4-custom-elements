@@ -14,5 +14,9 @@
 		"custom-element",
 		"custom-elements"
 	],
-	"homepage": "https://github.com/dgt41/bs4-custom-elements"
+	"homepage": "https://github.com/dgt41/bs4-custom-elements",
+	"devDependencies": {
+		"web-component-tester": "^4.0.0",
+		"webcomponentsjs": "^1.0.0"
+	}
 }

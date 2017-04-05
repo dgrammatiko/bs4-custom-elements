@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+
+	<!-- Step 1: import the element to test -->
+	<link rel="import" href="../dist/js/alert.min.js">
+</head>
+
+<body>
+
+	<!-- You can use the document as a place to set up your fixtures. -->
+	<test-fixture id="alert-element-basic">
+		<template>
+			<bs4-alert>Has some text</bs4-alert>
+		</template>
+	</test-fixture>
+
+	<script>
+		suite('<alert-element>', function () {
+
+			var myEl;
+
+			setup(function () {
+				myEl = fixture('alert-element-basic');
+			});
+
+			// test('Has the right structure and text', function () {
+			// 	expect(myEl.querySelector('div')).to.have.class('alert');
+			// });
+
+			test('Has the right text', function () {
+				assert.equal(myEl.innerText, 'Has some text');
+			});
+
+			// test('says hello', function () {
+			// 	assert.equal(myEl.sayHello(), 'seed-element says, Hello World!');
+
+			// 	var greetings = myEl.sayHello('greetings Earthlings');
+			// 	assert.equal(greetings, 'seed-element says, greetings Earthlings');
+			// });
+
+			// test('fires lasers', function (done) {
+			// 	myEl.addEventListener('seed-element-lasers', function (event) {
+			// 		assert.equal(event.detail.sound, 'Pew pew!');
+			// 		done();
+			// 	});
+			// 	myEl.fireLasers();
+			// });
+
+			// test('distributed children', function () {
+			// 	var els = myEl.getContentChildren();
+			// 	assert.equal(els.length, 1, 'one distributed node');
+			// 	assert.equal(els[0], myEl.querySelector('h2'), 'content distributed correctly');
+			// });
+
+		});
+	</script>
+
+</body>
+
+</html>

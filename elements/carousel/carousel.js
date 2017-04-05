@@ -13,7 +13,9 @@
 	};
 
 	class CarouselElement extends HTMLElement {
-
+		constructor() {
+			super();
+		}
 		/* Attributes to monitor */
 		static get observedAttributes() { return ['attribute']; }
 

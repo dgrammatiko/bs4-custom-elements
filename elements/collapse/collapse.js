@@ -1,7 +1,9 @@
 (function () {
 
 	class CollapseElement extends HTMLElement {
-
+		constructor() {
+			super();
+		}
 		/* Attributes to monitor */
 		static get observedAttributes() { return ['state']; }
 

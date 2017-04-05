@@ -6,9 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/dgt41/bootstrap-components-as-custom-elements.git"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dgt41/bootstrap-components-as-custom-elements/issues"
@@ -24,14 +22,14 @@
   ],
   "author": "Dimitrios Grammatikogiannis",
   "devDependencies": {
-			"babel-preset-es2015": "latest",
-			"babelify": "latest",
-			"babili": "0.0.12",
-			"grunt-browserify": "^5.0.0",
-			"grunt": "latest",
-			"grunt-contrib-copy": "latest",
-			"grunt-contrib-cssmin": "latest",
-			"grunt-sass": "latest",
-			"babel-plugin-transform-custom-element-classes": "^0.1.0"
+    "babel-plugin-transform-custom-element-classes": "^0.1.0",
+    "babel-preset-es2015": "latest",
+    "babili": "latest",
+    "grunt": "latest",
+    "grunt-babel": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-sass": "latest",
+    "web-component-tester": "latest"
   }
 }

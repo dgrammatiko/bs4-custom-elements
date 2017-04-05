@@ -1,18 +1,17 @@
 (function () {
 
 	class AlertElement extends HTMLElement {
-
-		/* Attributes to monitor */
-		static get observedAttributes() {
-			return ['type', 'button'];
+		constructor() {
+			super();
 		}
+		/* Attributes to monitor */
+		static get observedAttributes() { return ['type', 'button']; }
 		get type() { return this.getAttribute('type'); }
 		get button() { return this.getAttribute('button'); }
 
 		/* Called when the element is inserted into a document */
 		connectedCallback() {
 
-			// this.style.display = 'block';
 			this.container = document.createElement('div');
 			this.container.setAttribute('role', 'alert');
 			this.container.classList.add("alert");

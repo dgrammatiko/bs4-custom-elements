@@ -1,16 +1,19 @@
 module.exports = function (grunt) {
 	if (grunt.file.exists('settings-custom.yaml')) {
+		// We have a custom setup
 		var settings = grunt.file.readYAML('settings-custom.yaml');
 		console.log('Custom settings supplied')
 	} else {
+		// We will use the default options
 		var settings = grunt.file.readYAML('settings.yaml');
 	}
 
 	// Load required modules
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-babel');
 	grunt.loadNpmTasks('grunt-sass');
 
+	// Cleanup process
 	grunt.registerTask('clearFiles', 'Clean up', function () {
 		settings.elements.forEach(function (element) {
 			// Remove the non minified css
@@ -20,24 +23,17 @@ module.exports = function (grunt) {
 			if (grunt.file.exists('elements/' + element + '/' + element + '_a.js')) {
 				grunt.file.delete('elements/' + element + '/' + element + '_a.js');
 			}
-			if (grunt.file.exists('elements/' + element + '/' + element + '_b.js')) {
-				grunt.file.delete('elements/' + element + '/' + element + '_b.js');
-			}
-			if (grunt.file.exists('elements/' + element + '/' + element + '_a.min.js')) {
-				grunt.file.delete('elements/' + element + '/' + element + '_a.min.js');
-			}
-			if (grunt.file.exists('elements/' + element + '/' + element + '_b.min.js')) {
-				grunt.file.delete('elements/' + element + '/' + element + '_b.min.js');
-			}
 		});
 	});
 
+	// Create WebComponentsJs compatible elements
 	grunt.registerTask('createHtml', 'Create Html version of the elements', function () {
 		settings.elements.forEach(function (element) {
-			if (grunt.file.exists('elements/' + element + '/' + element + '_a.min.js')) {
+			console.info(grunt.file.exists('dist/js/' + element + '.min.js'))
+			if (grunt.file.exists('dist/js/' + element + '.min.js')) {
 				// Compose the element as .html
 				var tmpOutput = '<element name="' + settings.prefix + '-' + element + '">';
-					tmpJs = grunt.file.read('elements/' + element + '/' + element + '_a.min.js');
+					tmpJs = grunt.file.read('dist/js/' + element + '.min.js');
 					tmpOutput += '<script>' + tmpJs + '</script>';
 					tmpOutput += '</element>';
 
@@ -71,69 +67,64 @@ module.exports = function (grunt) {
 
 		// Create the custom element
 		var createElement = function(element) {
-var webComponents = `
-	window.addEventListener('WebComponentsReady', function () {
+			var plain = `
+if (!window.customElements) {
+	window.addEventListener('WebComponentsReady',function(){
 		customElements.define('bs4-` + element + `', {{ELEMENTCLASS}});
 	});
-	`;
-var plain = `
-	if (window.customElements) customElements.define('bs4-` + element + `', {{ELEMENTCLASS}});
-	`;
-			var tmpJs = '', tmpJsPlain = '';
+} else {
+	customElements.define('bs4-` + element + `', {{ELEMENTCLASS}});
+}
+`,
+			tmpJs = '', tmpJsPlain = '';
+
 			if (grunt.file.exists('elements/' + element + '/' + element + '.js')) {
 				tmpJs = grunt.file.read('elements/' + element + '/' + element + '.js');
-
-				webComponents = webComponents.replace(/{{ELEMENTCLASS}}/g, element.capitalizeFirstLetter() + 'Element');
-				tmpJs = tmpJs.replace(/{{REGISTERELEMENT}}/g, webComponents);
-				tmpJs = tmpJs.replace(/bs4-/g, settings.prefix + '-');
-				grunt.file.write('elements/' + element + '/' + element + '_a.js', tmpJs);
 
 				// Repeat
 				tmpJs = grunt.file.read('elements/' + element + '/' + element + '.js');
 				plain = plain.replace(/{{ELEMENTCLASS}}/g, element.capitalizeFirstLetter() + 'Element');
 				tmpJs = tmpJs.replace(/{{REGISTERELEMENT}}/g, plain);
 				tmpJs = tmpJs.replace(/bs4-/g, settings.prefix + '-');
-				grunt.file.write('elements/' + element + '/' + element + '_b.js', tmpJs);
+				grunt.file.write('elements/' + element + '/' + element + '_a.js', tmpJs);
 
-				// As Js
-				grunt.config.set('browserify.' + element + '.files', [{
-					src: 'elements/' + element + '/' + element + '_b.js',
-					dest: 'dist/js/' + element + '.min.js'
-				}]);
-				grunt.config.set('browserify.' + element + '.options', {
-					transform: [["babelify", {
-						"plugins": ["transform-custom-element-classes", "transform-es2015-classes"],
-						"presets": ["babili", "es2015"] //
-					}]]
+				grunt.config.set('babel.options', {
+						sourceMap: false,
+						"plugins": [
+							["transform-custom-element-classes", {
+								"name": element
+							}],
+							"transform-es2015-classes"],
+						"presets": [
+							["es2015", {
+								"loose": false,
+								"modules": false
+							}],
+							"babili",
+						]
 				});
 
-				grunt.task.run('browserify:' + element);
+				// As Js
+				grunt.config.set('babel.' + element + '.files', [{
+					dest: 'dist/js/' + element + '.min.js',
+					src: 'elements/' + element + '/' + element + '_a.js',
+				}]);
 
-				// As Html
-				// grunt.config.set('browserify.' + element + '_a.files', [{
-				// 	src: 'elements/' + element + '/' + element + '_a.js',
-				// 	dest: 'elements/' + element + '/' + element + '_a.min.js'
-				// }]);
-				// grunt.config.set('browserify.' + element + '_a.options', {
-
-				// 	transform: [["babelify", {
-				// 		//"plugins": ["transform-custom-element-classes", "transform-es2015-classes"],
-				// 		"presets": ["babili", "es2015"]
-				// 	}]]
-				// });
-
-				// grunt.task.run('browserify:' + element + '_a');
+				grunt.task.run('babel:' + element);
 			}
 		};
 
 		console.log('Build the custom Elements')
 		settings.elements.forEach(function (element) {
+			// Create the css for each element
 			compileCss(element);
+
+			// Create elements as html files, compatible with document-register-element polyfill
 			createElement(element);
 		});
 
-		// Do the clean up
-		grunt.task.run('createHtml');
+		// Create elements as html files, compatible with webcomponentjs polyfill
+		// grunt.task.run('createHtml');
 
 		// Do the clean up
 		grunt.task.run('clearFiles');

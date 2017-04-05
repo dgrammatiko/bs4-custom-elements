@@ -1,27 +1,27 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
+
     <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Bootstrap</title>
 		<link rel="stylesheet" href="assets/bootstrap.min.css">
 
+		<link rel="stylesheet" href="css/button.min.css">
 		<link rel="stylesheet" href="css/accordion.min.css">
 		<link rel="stylesheet" href="css/alert.min.css">
 		<link rel="stylesheet" href="css/button.min.css">
-
-
-		<script src="polyfill/ce-loader.js"></script>
-
 <!--
 		// IE 10 needs also these polyfills
 		<script src="https://cdn.polyfill.io/v2/polyfill.js?features=Object.setPrototypeOf,CustomEvent"></script>
 -->
+
+	<script src="polyfill/ce-loader.js"></script>
   </head>
   <body>
     <div class="container">
-
+<bs4-scrollspy></bs4-scrollspy>
 		<h2>Dropdown</h2>
 
 		<bs4-dropdown class="dropdown" style="display: block;">
@@ -308,5 +308,12 @@
 		<script src="js/tabs.min.js" defer></script>
 		<script src="js/accordion.min.js" defer></script>
 		<script src="js/dropdown.min.js" defer></script>
+		<script src="js/scrollspy.min.js" defer></script>
+
+<!--<script language="javascript">
+window.addEventListener('WebComponentsReady', function() {
+	console.log('dgdfg')
+})
+</script>-->
   </body>
 </html>
