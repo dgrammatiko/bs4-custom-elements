@@ -1,5 +1,7 @@
 # bs4-custom-elements
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dgt41/bs4-custom-elements.svg)](https://greenkeeper.io/)
+
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/dgt41/bs4-custom-elements)
 
