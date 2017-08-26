@@ -13,7 +13,7 @@
     "grunt-contrib-htmlmin": "^2.2.0",
     "grunt-contrib-uglify": "latest",
     "grunt-sass": "^2.0.0",
-    "bootstrap": "~4.0.0-alpha.6"
+    "bootstrap": "~4.0.0-Beta"
   },
   "license": "MIT",
   "bugs": {
